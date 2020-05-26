@@ -82,7 +82,26 @@ Aucune pour le moment.
 * Avancement de la documentation technique
   - Chapitre méthodologie
   - Rédaction du product backlog
+  - Structure du projet (dossiers)
+  - Fichiers de code (app.js, renderer.js, preload.js)
 
 * Recherches
   - Utilisation d'Electron Forge pour gérer le démarrage et le packaging de l'app Electron (https://www.electronforge.io/)
   - Pour l'UI, Bootstrap sera utilisé avec jQuery
+
+* Avancement de l'appli
+  - Setup boilerplate avec Electron Forge
+    - Permet de gérer les scripts de démarrage et de packaging plus simplement (yarn run start, yarn run make, etc)
+  - Paramétrage de l'interface
+    - Taille (1050x580)
+    - Pas de "frame" autour de l'appli, puisqu'on a un frame customisé
+    - No resize de la fenêtre
+    - No maximize
+  - Ajout de Bootstrap et jQuery via leurs CDN respectifs
+  - Ajout de la barre de navigation
+    - Lien vers la page d'accueil NetMonitor
+    - Lien vers la page scan par IP ou nom de domaine
+    - Lien vers la page scan du réseau local
+  - Ajout de la page d'accueil
+    - Bouton scan par IP ou nom de domaine
+    - Bouton scan du réseau local
