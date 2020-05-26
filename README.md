@@ -72,3 +72,11 @@ Aucune pour le moment.
 **26.05.2020*
 
 * Récap du travail de la veille
+
+* Avancement de la documentation technique
+  - Chapitre méthodologie
+  - Rédaction du product backlog
+
+* Recherches
+  - Utilisation d'Electron Forge pour gérer le démarrage et le packaging de l'app Electron (https://www.electronforge.io/)
+  - Pour l'UI, Bootstrap sera utilisé avec jQuery
