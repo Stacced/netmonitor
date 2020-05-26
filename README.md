@@ -1,12 +1,13 @@
 <table align="center"><tr><td align="center" width="9999">
 <img src="https://i.imgur.com/xQxCGjE.png" align="center" width="150" alt="Logo du projet"><br>
-Logiciel de surveillance par Webcam
+Logiciel de découverte réseau avec Nmap
 </td></tr></table>
 
 # Table des matières 
 
 - [A propos](#a-propos)
   - [Outils utilisés](#outils-utilisés)
+  - [Outils utilisés pour la documentation](#outils-utilisés-pour-la-documentation)
 - [Remarques](#remarques)
 - [Journal de bord](#journal-de-bord)
 - [Planning](https://prnt.sc/snhd3a)
@@ -45,6 +46,11 @@ précis.
 Bootstrap est utilisé pour tout ce qui est interfaces de mon application. Bien que cette dernière ait une taille fixe,
 je me suis efforcé de construire une interface qui serait techniquement responsive, en utilisant les composants mis à disposition par Bootstrap.
 
+## Outils utilisés pour la documentation
+* Planning : [Google Sheets](https://www.docs.google.com/sheets)
+* Environnement de développement : [PhpStorm](https://jetbrains.com/phpstorm)
+* Documentation technique et manuel d'utilisateur : [Word](https://office.com)
+
 # Remarques
 
 Aucune pour le moment.
@@ -69,3 +75,14 @@ Aucune pour le moment.
       - Compte-tenu du fait que l'utilisateur peut sélectionner des arguments spéciaux, est-ce qu'il ne serait pas utile de rajouter
       une option pour voir l'output "brut" d'Nmap ?
 ----
+**26.05.2020**
+
+* Récap du travail de la veille
+
+* Avancement de la documentation technique
+  - Chapitre méthodologie
+  - Rédaction du product backlog
+
+* Recherches
+  - Utilisation d'Electron Forge pour gérer le démarrage et le packaging de l'app Electron (https://www.electronforge.io/)
+  - Pour l'UI, Bootstrap sera utilisé avec jQuery
