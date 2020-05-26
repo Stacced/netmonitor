@@ -1,0 +1,32 @@
+/*
+  Project   : NetMonitor
+  Author    : Stacked
+  Version   : 26.05.2020 - 1.0.0
+  Desc      : App main CSS file
+ */
+:root {
+  --viewport-width: 1050px;
+  --viewport-height: 580px;
+  --navbar-height: 56px;
+}
+
+/*
+ NAVBAR STYLING
+ */
+#mainNavbar {
+  -webkit-app-region: drag;
+}
+
+.nav-link, .navbar-brand {
+  -webkit-app-region: no-drag;
+  -webkit-user-select: none;
+}
+
+#minimizeApp {
+  -webkit-app-region: no-drag;
+  margin-right: 10px;
+}
+
+#closeApp {
+  -webkit-app-region: no-drag;
+}
