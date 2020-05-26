@@ -1,6 +1,6 @@
 <table align="center"><tr><td align="center" width="9999">
 <img src="https://i.imgur.com/xQxCGjE.png" align="center" width="150" alt="Logo du projet"><br>
-Logiciel de surveillance par Webcam
+Logiciel de découverte réseau avec Nmap
 </td></tr></table>
 
 # Table des matières 
