@@ -1,5 +1,16 @@
+/*
+  Project   : NetMonitor
+  Author    : Stacked
+  Version   : 26.05.2020 - 1.0.0
+  Desc      : App entrypoint, main process
+ */
+
+// Dependencies / imports
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
+
+// Auto reload
+require('electron-reload')(__dirname);
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
@@ -9,8 +20,11 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1050,
+    height: 580,
+    frame: false,
+    resizable: false,
+    maximizable: false,
   });
 
   // and load the index.html of the app.
