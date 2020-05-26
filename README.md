@@ -69,3 +69,6 @@ Aucune pour le moment.
       - Compte-tenu du fait que l'utilisateur peut sélectionner des arguments spéciaux, est-ce qu'il ne serait pas utile de rajouter
       une option pour voir l'output "brut" d'Nmap ?
 ----
+**26.05.2020*
+
+* Récap du travail de la veille
