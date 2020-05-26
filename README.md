@@ -7,6 +7,7 @@ Logiciel de découverte réseau avec Nmap
 
 - [A propos](#a-propos)
   - [Outils utilisés](#outils-utilisés)
+  - [Outils utilisés pour la documentation](#outils-utilisés-pour-la-documentation)
 - [Remarques](#remarques)
 - [Journal de bord](#journal-de-bord)
 - [Planning](https://prnt.sc/snhd3a)
@@ -44,6 +45,11 @@ précis.
 
 Bootstrap est utilisé pour tout ce qui est interfaces de mon application. Bien que cette dernière ait une taille fixe,
 je me suis efforcé de construire une interface qui serait techniquement responsive, en utilisant les composants mis à disposition par Bootstrap.
+
+## Outils utilisés pour la documentation
+* Planning : [Google Sheets](https://www.docs.google.com/sheets)
+* Environnement de développement : [PhpStorm](https://jetbrains.com/phpstorm)
+* Documentation technique et manuel d'utilisateur : [Word](https://office.com)
 
 # Remarques
 
