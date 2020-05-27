@@ -20,6 +20,14 @@ $('#minimizeApp').click(() => {
 });
 
 /**
+ * Adds Boostrap class selected on active tab
+ */
+$(".nav-link").click((e) => {
+    $(".nav-link").removeClass('active');
+    $(e.target).addClass('active');
+});
+
+/**
  * Handles tab switch
  * This is used instead of loading a whole HTML file to keep the app as smooth as possible
  * Using mainWindow.loadFile() would completely refresh the page, and for the end-user it's not that great
