@@ -4,6 +4,19 @@
   Version   : 27.05.2020 - 1.0.0
   Desc      : UI renderer process
  */
+// Constants
+const profileArgs = {
+    default: "",
+    fast: "-T4 -F",
+    fastplus: "-sV -T4 -O -F --version-light",
+    intense: "-T4 -A -v",
+    intenseudp: "-sS -sU -T4 -A -v",
+    intensenop: "-T4 -A -v -Pn",
+    ping: "-sn"
+}
+
+// Global variables
+let selectedProfile = 'default';
 
 /**
  * Sends an event to the main process thru our context bridge to close app
@@ -17,6 +30,33 @@ $('#closeApp').click(() => {
  */
 $('#minimizeApp').click(() => {
     window.bridge.minimizeApp();
+});
+
+/*
+ * Handles input event on IP address field
+ * Appends user-provided IP address to args field
+ */
+$('#ipAddress').on('input', () => {
+    // Append IP address to args field
+    $('#nmapArgs').val(profileArgs[selectedProfile].concat(' ', $('#ipAddress').val()));
+});
+
+/**
+ * Handles args field read-only state on scan by IP tab
+ */
+$('#scanProfile').change(() => {
+    // Get selected option value and update global reference
+    selectedProfile = $('option:selected').val();
+
+    // Display args in field
+    $('#nmapArgs').val(profileArgs[selectedProfile].concat(' ', $('#ipAddress').val()));
+
+    // Check if selected profile is custom to enable / disable args field
+    if (selectedProfile === "custom") {
+        $('#nmapArgs').prop('readonly', false);
+    } else {
+        $('#nmapArgs').prop('readonly', true);
+    }
 });
 
 /*
