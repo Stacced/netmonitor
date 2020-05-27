@@ -5,55 +5,63 @@
   Desc      : App main CSS file
  */
 :root {
-  --viewport-width: 1050px;
-  --viewport-height: 580px;
-  --navbar-height: 56px;
+    --viewport-width: 1050px;
+    --viewport-height: 580px;
+    --navbar-height: 56px;
+}
+
+/*
+ HIDE PAGES
+ */
+#scanIp, #scanLocalNet {
+    display: none;
+    -webkit-user-select: none;
 }
 
 /*
  NAVBAR STYLING
  */
 #mainNavbar {
-  -webkit-app-region: drag;
+    -webkit-app-region: drag;
 }
 
 .nav-link, .navbar-brand {
-  -webkit-app-region: no-drag;
-  -webkit-user-select: none;
+    -webkit-app-region: no-drag;
+    -webkit-user-select: none;
 }
 
 #minimizeApp {
-  -webkit-app-region: no-drag;
-  margin-right: 10px;
+    -webkit-app-region: no-drag;
+    margin-right: 10px;
 }
 
 #closeApp {
-  -webkit-app-region: no-drag;
+    -webkit-app-region: no-drag;
 }
 
 /*
  HOME TAB STYLING
  */
 #home {
-  height: calc(var(--viewport-height) - 56px);
+    height: calc(var(--viewport-height) - 56px);
 }
 
 .homeChoice {
-  text-align: center;
-  width: 40%;
-  -webkit-user-select: none;
+    text-align: center;
+    width: 40%;
+    -webkit-user-select: none;
 }
 
 .homeChoice img {
-  width: 200px;
-  height: 200px;
-  -webkit-user-drag: none;
+    width: 200px;
+    height: 200px;
+    -webkit-user-drag: none;
 }
 
 .homeChoice span {
-  font-size: 18pt;
+    font-size: 18pt;
 }
 
 .homeChoice:hover {
-  cursor: pointer;
+    cursor: pointer;
 }

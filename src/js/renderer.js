@@ -18,3 +18,22 @@ $('#closeApp').click(() => {
 $('#minimizeApp').click(() => {
     window.bridge.minimizeApp();
 });
+
+/**
+ * Handles tab switch
+ * This is used instead of loading a whole HTML file to keep the app as smooth as possible
+ * Using mainWindow.loadFile() would completely refresh the page, and for the end-user it's not that great
+ * @param tab
+ */
+function handleClickNavigation(tab) {
+    // Show selected tab
+    $(`#${tab}`).css('display', 'block');
+
+    // Loop over other tabs to hide them
+    const otherTabs = $('div[class*="tab"]');
+    otherTabs.each((tabIndex, tabElement) => {
+        if ($(tabElement).attr('id') !== tab) {
+            $(tabElement).css('display', 'none');
+        }
+    });
+}
