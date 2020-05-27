@@ -75,12 +75,13 @@ $('#cancelScan').click(() => {
 });
 
 /**
- * Adds Boostrap class selected on active tab
+ * Sets active tab in navbar (basically adds the "active" class to nav link)
+ * @param tab
  */
-$(".nav-link").click((e) => {
+function setActiveTab(tab) {
     $(".nav-link").removeClass('active');
-    $(e.target).addClass('active');
-});
+    $(`#${tab}Link`).addClass('active');
+}
 
 /**
  * Handles tab switch
@@ -91,6 +92,9 @@ $(".nav-link").click((e) => {
 function handleClickNavigation(tab) {
     // Show selected tab
     $(`#${tab}`).css('display', 'block');
+
+    // Set new active tab
+    setActiveTab(tab);
 
     // Loop over other tabs to hide them
     const otherTabs = $('div[class*="tab"]');
