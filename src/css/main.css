@@ -65,3 +65,10 @@
 .homeChoice:hover {
     cursor: pointer;
 }
+
+/*
+ SCAN IP PAGE
+ */
+#scanIp {
+    padding-top: 20px;
+}
