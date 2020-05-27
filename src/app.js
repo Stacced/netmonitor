@@ -1,12 +1,12 @@
 /*
   Project   : NetMonitor
   Author    : Stacked
-  Version   : 26.05.2020 - 1.0.0
+  Version   : 27.05.2020 - 1.0.0
   Desc      : App entrypoint, main process
  */
 
 // Dependencies / imports
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 
 // Auto reload
@@ -28,6 +28,7 @@ const createWindow = () => {
         webPreferences: {
             contextIsolation: true,
             enableRemoteModule: false,
+            preload: path.join(__dirname, 'js/preload.js')
         }
     });
 
@@ -62,3 +63,8 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+
+// Listen to close app event from renderer process
+ipcMain.on('rendererCloseApp', () => {
+    BrowserWindow.getFocusedWindow().close();
+});
