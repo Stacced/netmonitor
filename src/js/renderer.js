@@ -12,7 +12,8 @@ const profileArgs = {
     intense: "-T4 -A -v",
     intenseudp: "-sS -sU -T4 -A -v",
     intensenop: "-T4 -A -v -Pn",
-    ping: "-sn"
+    ping: "-sn",
+    custom: ""
 }
 
 // Global variables
@@ -32,13 +33,13 @@ $('#minimizeApp').click(() => {
     window.bridge.minimizeApp();
 });
 
-/*
+/**
  * Handles input event on IP address field
  * Appends user-provided IP address to args field
  */
 $('#ipAddress').on('input', () => {
     // Append IP address to args field
-    $('#nmapArgs').val(profileArgs[selectedProfile].concat(' ', $('#ipAddress').val()));
+    $('#nmapToScan').text($('#ipAddress').val());
 });
 
 /**
@@ -49,7 +50,8 @@ $('#scanProfile').change(() => {
     selectedProfile = $('option:selected').val();
 
     // Display args in field
-    $('#nmapArgs').val(profileArgs[selectedProfile].concat(' ', $('#ipAddress').val()));
+    $('#nmapArgs').val(profileArgs[selectedProfile]);
+    $('#nmapToScan').val($('#ipAddress').val());
 
     // Check if selected profile is custom to enable / disable args field
     if (selectedProfile === "custom") {
@@ -59,7 +61,28 @@ $('#scanProfile').change(() => {
     }
 });
 
-/*
+/**
+ * Sends event to main process to start Nmap scan with passed arguments
+ * Also validates user input
+ */
+$('#startScan').click(() => {
+    const toScan = $('#ipAddress').val();
+    const nmapArgs = $('#nmapArgs').val();
+
+    window.bridge.startScanIp({ip: toScan, nmapArgs: nmapArgs});
+});
+
+// Register callback for scan IP done event
+window.bridge.onScanIpDone(scanIpDoneCallback);
+
+/**
+ * Callback function for scan IP results receive event
+ */
+function scanIpDoneCallback(event, args) {
+    console.log(args); // TODO: display data
+}
+
+/**
  * Sends user back to home tab after cancelling scan
  * Also clears inputs
  */

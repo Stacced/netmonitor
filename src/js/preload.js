@@ -15,6 +15,12 @@ contextBridge.exposeInMainWorld(
         },
         minimizeApp: () => {
             ipcRenderer.send('rendererMinimizeApp');
+        },
+        startScanIp: (scanArgs) => {
+            ipcRenderer.send('rendererStartScanIp', scanArgs);
+        },
+        onScanIpDone: (scanIpDoneCallback) => {
+            ipcRenderer.on('mainScanIpDone', scanIpDoneCallback);
         }
     }
 )

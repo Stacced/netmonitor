@@ -7,6 +7,7 @@
 
 // Dependencies / imports
 const { app, BrowserWindow, ipcMain } = require('electron');
+const nmap = require('node-nmap');
 const path = require('path');
 
 // Auto reload
@@ -72,4 +73,27 @@ ipcMain.on('rendererCloseApp', () => {
 // Listen to minimize event from renderer process
 ipcMain.on('rendererMinimizeApp', () => {
     BrowserWindow.getFocusedWindow().minimize();
+})
+
+// Listen to start IP scan event from renderer process
+ipcMain.on('rendererStartScanIp', (event, args) => {
+    // Extract data from args object
+    const toScan = args.ip;
+    const nmapArgs = args.nmapArgs;
+
+    // Create new scan object with received IP or domain name and Nmap args
+    const scan = new nmap.NmapScan(toScan, nmapArgs);
+
+    // Reply to event on complete with scan results
+    scan.on('complete', () => {
+        event.reply('mainScanIpDone', scan.rawJSON);
+    });
+
+    // Reply to event on error with error flag
+    scan.on('error', error => {
+        console.error(error); // TODO: send error
+    })
+
+    // Start scan on the object
+    scan.startScan();
 })
