@@ -19,6 +19,21 @@ $('#minimizeApp').click(() => {
     window.bridge.minimizeApp();
 });
 
+/*
+ * Sends user back to home tab after cancelling scan
+ * Also clears inputs
+ */
+$('#cancelScan').click(() => {
+    // Redirect user to home page
+    handleClickNavigation('home');
+
+    // Reset fields
+    $('#ipAddress').val('');
+    $('#nmapArgs').val('');
+    $('option:selected').removeProp('selected');
+    $("option[value='default']").prop('selected', 'selected');
+});
+
 /**
  * Adds Boostrap class selected on active tab
  */
