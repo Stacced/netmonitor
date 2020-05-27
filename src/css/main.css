@@ -11,11 +11,18 @@
 }
 
 /*
- HIDE PAGES
+ GLOBAL STYLING ON ALL PAGES
  */
-#scanIp, #scanLocalNet {
+#scanIp, #scanLocalNet, #scanResults, #loadingScreen {
     display: none;
     -webkit-user-select: none;
+}
+
+/*
+ BLOCK IMAGE DRAG
+ */
+img {
+    -webkit-user-drag: none;
 }
 
 /*
@@ -40,6 +47,13 @@
 }
 
 /*
+ LOADING PAGE STYLING
+ */
+#loadingScreen {
+    height: calc(var(--viewport-height) - 56px);
+}
+
+/*
  HOME TAB STYLING
  */
 #home {
@@ -55,7 +69,6 @@
 .homeChoice img {
     width: 200px;
     height: 200px;
-    -webkit-user-drag: none;
 }
 
 .homeChoice span {

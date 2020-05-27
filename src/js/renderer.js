@@ -69,7 +69,11 @@ $('#startScan').click(() => {
     const toScan = $('#ipAddress').val();
     const nmapArgs = $('#nmapArgs').val();
 
+    // Send start scan event thru context bridge
     window.bridge.startScanIp({ip: toScan, nmapArgs: nmapArgs});
+
+    // Display loading screen
+    handleClickNavigation('loadingScreen');
 });
 
 // Register callback for scan IP done event
@@ -79,6 +83,8 @@ window.bridge.onScanIpDone(scanIpDoneCallback);
  * Callback function for scan IP results receive event
  */
 function scanIpDoneCallback(event, args) {
+    // Display results tab
+    handleClickNavigation('scanResults');
     console.log(args); // TODO: display data
 }
 
