@@ -68,3 +68,8 @@ app.on('activate', () => {
 ipcMain.on('rendererCloseApp', () => {
     BrowserWindow.getFocusedWindow().close();
 });
+
+// Listen to minimize event from renderer process
+ipcMain.on('rendererMinimizeApp', () => {
+    BrowserWindow.getFocusedWindow().minimize();
+})

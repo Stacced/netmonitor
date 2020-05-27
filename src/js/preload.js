@@ -12,6 +12,9 @@ contextBridge.exposeInMainWorld(
     'bridge', {
         closeApp: () => {
             ipcRenderer.send('rendererCloseApp');
+        },
+        minimizeApp: () => {
+            ipcRenderer.send('rendererMinimizeApp');
         }
     }
 )

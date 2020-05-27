@@ -11,3 +11,10 @@
 $('#closeApp').click(() => {
     window.bridge.closeApp();
 })
+
+/**
+ * Sends an event to the main process thru our context bridge to minimize app
+ */
+$('#minimizeApp').click(() => {
+    window.bridge.minimizeApp();
+});
