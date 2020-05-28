@@ -41,6 +41,7 @@ V8 (moteur JS de Google écrit en C++) et Node.js.
 
 Le package que j'ai choisi pour interfacer avec Nmap est *node-nmap*. Bien qu'il n'ait pas été mis à jour depuis 3 ans,
 après l'avoir testé, il fonctionne encore parfaitement bien. Il me permettra d'effectuer des scans facilement et en me retournant des résultats précis.
+
 **Mise à jour 28.05 pour node-nmap**
 Après avoir découvert quelques *caveats* à node-nmap, j'ai décidé de tout simplement fork la librairie pour y apporter mes propres modifications (disponibles sur le dépot de la lib, voir plus haut pour le lien). J'en ferais peut-être un projet plus concret dans le futur.
 
