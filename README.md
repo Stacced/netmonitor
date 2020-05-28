@@ -32,7 +32,7 @@ Mon but est de construire cette application avec les outils suivants :
 * [ElectronJS](https://www.electronjs.org/)
 * [NodeJS](https://nodejs.org/en/)
 * [Nmap](https://nmap.org/)
-* [Le package node-nmap](https://www.npmjs.com/package/node-nmap)
+* [Ma version du package node-nmap](https://github.com/Stacced/node-nmap/)
 * [Bootstrap pour l'UI](https://getbootstrap.com/)
 
 ElectronJS est un framework JavaScript permettant aux développeurs de créer des applications
@@ -40,8 +40,9 @@ cross-platform pour ordinateur. Chaque application est packagée avec Chromium (
 V8 (moteur JS de Google écrit en C++) et Node.js.
 
 Le package que j'ai choisi pour interfacer avec Nmap est *node-nmap*. Bien qu'il n'ait pas été mis à jour depuis 3 ans,
-après l'avoir testé, il fonctionne encore parfaitement bien. Il me permettra d'effectuer des scans facilement et en me retournant des résultats
-précis.
+après l'avoir testé, il fonctionne encore parfaitement bien. Il me permettra d'effectuer des scans facilement et en me retournant des résultats précis.
+**Mise à jour 28.05 pour node-nmap**
+Après avoir découvert quelques *caveats* à node-nmap, j'ai décidé de tout simplement fork la librairie pour y apporter mes propres modifications (disponibles sur le dépot de la lib, voir plus haut pour le lien). J'en ferais peut-être un projet plus concret dans le futur.
 
 Bootstrap est utilisé pour tout ce qui est interfaces de mon application. Bien que cette dernière ait une taille fixe,
 je me suis efforcé de construire une interface qui serait techniquement responsive, en utilisant les composants mis à disposition par Bootstrap.
