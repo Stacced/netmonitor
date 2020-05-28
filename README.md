@@ -105,3 +105,29 @@ Aucune pour le moment.
   - Ajout de la page d'accueil
     - Bouton scan par IP ou nom de domaine
     - Bouton scan du réseau local
+----
+**27.05.2020**
+ * Récap du travail de la veille
+ 
+ * Création de la page scan par IP
+  - A faire:
+    - Champ IP/NDD
+    - Champ profil de scan
+    - Champ arguments (pour le profil personnalisé)
+    - Bouton lancer le scan
+    - Bouton annuler
+    
+ * Préparation des autres pages pour plus tard
+  - On peut désormais switch entre les différentes pages via la barre de navigation et par les boutons de la page d'accueil
+ 
+ * Petit problème d'UI rencontré sur le champ profil
+  - On voit un outline orange sur les options. Après quelques recherches, cela vient certainement des paramètres d'accessibilité de Chrome. Après quelques recherches et essais, impossible de l'enlever...
+  
+ * UI de la page scan par IP terminé
+ 
+ * Première version du "vrai" scan
+  - Cela a pris plus de temps que prévu, je n'ai donc pas pu accorder beaucoup de temps à la page des résultats. On fera ça demain.
+  - J'utilise la librairie [node-nmap](https://www.npmjs.com/package/node-nmap) pour interfacer avec NMAP. L'objectif est de ship l'application avec l'exécutable d'NMAP pour éviter à l'utilisateur d'avoir à l'installer.
+  - Voici un petit schéma de fonctionnement pour les scans
+  
+----
