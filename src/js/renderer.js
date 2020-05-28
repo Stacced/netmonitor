@@ -117,6 +117,13 @@ $('#cancelScan').click(() => {
 });
 
 /**
+ * Sends user back to home tab
+ */
+$('#closeResults').click(() => {
+    handleClickNavigation('home');
+});
+
+/**
  * Sets active tab in navbar (basically adds the "active" class to nav link)
  * @param tab
  */
