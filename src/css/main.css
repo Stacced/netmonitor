@@ -85,3 +85,15 @@ img {
 #scanIp {
     padding-top: 20px;
 }
+/*
+ RESULTS PAGE
+ */
+#scanResults {
+    padding-top: 20px;
+}
+
+#scanResultsText {
+    -webkit-user-select: text;
+    height: 65vh;
+    width: 100%;
+}

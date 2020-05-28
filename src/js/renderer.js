@@ -85,7 +85,9 @@ window.bridge.onScanIpDone(scanIpDoneCallback);
 function scanIpDoneCallback(event, args) {
     // Display results tab
     handleClickNavigation('scanResults');
-    console.log(args); // TODO: display data
+
+    // Load results
+    $('#scanResultsText').text(args);
 }
 
 /**

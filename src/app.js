@@ -86,7 +86,7 @@ ipcMain.on('rendererStartScanIp', (event, args) => {
 
     // Reply to event on complete with scan results
     scan.on('complete', () => {
-        event.reply('mainScanIpDone', scan.rawJSON);
+        event.reply('mainScanIpDone', scan.rawData);
     });
 
     // Reply to event on error with error flag

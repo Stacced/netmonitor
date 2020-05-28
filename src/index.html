@@ -83,7 +83,17 @@
     <span>Page scan réseau local</span>
 </div>
 <div class="container tab" id="scanResults">
-    <span>Placeholder résultats scan</span>
+    <div class="row">
+        <h1>Résultats du scan</h1>
+    </div>
+    <div class="row">
+        <pre data-simplebar class="overflow-auto" id="scanResultsText"></pre>
+    </div>
+    <div class="d-flex justify-content-md-between fixed-bottom mb-5 ml-5 mr-5">
+        <button class="btn btn-primary" id="startTraceroute">Lancer le traceroute</button>
+        <button class="btn btn-warning" id="exportResults">Exporter les résultats</button>
+        <button class="btn btn-danger" id="closeResults">Fermer les résultats</button>
+    </div>
 </div>
 <div class="container tab" id="loadingScreen">
     <div class="d-flex h-100 align-items-center justify-content-around">

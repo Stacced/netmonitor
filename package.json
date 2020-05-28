@@ -47,7 +47,7 @@
   "dependencies": {
     "electron-reload": "^1.5.0",
     "electron-squirrel-startup": "^1.0.0",
-    "node-nmap": "^4.0.0"
+    "node-nmap": "Stacced/node-nmap"
   },
   "devDependencies": {
     "@electron-forge/cli": "6.0.0-beta.51",
