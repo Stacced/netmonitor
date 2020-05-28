@@ -131,3 +131,30 @@ Aucune pour le moment.
   - Voici un petit schéma de fonctionnement pour les scans
   
 ----
+**28.05.2020**
+  * Récap du travail de la veille
+  
+  * Après quelques analyses de la librairie `node-nmap`, il s'avère que les résultats que je reçois sont "pauvres". En effet, ils sont parsés à partir de la sortie XML d'NMAP, puis transformés en JSON, et encore par dessus ceci la librairie fait un traitement particulier. C'est extrêmement problématique car cela restreint énormément les infos renvoyées, même avec un profil de scan intensif. De plus, la librairie est configurée de telle manière qu'elle ne permet l'output des données qu'en XML ! Très embêttant également. De ce fait, il va falloir :
+    - Changer de parseur XML pour quelque chose de plus performant => Mon choix s'est porté sur [xml2json](https://www.npmjs.com/package/xml2json)
+    - Désactiver l'output XML forcé
+  
+  * Utilisation de mon fork de node-nmap ! Dispo [ici](https://github.com/Stacced/node-nmap/)
+    - Plus d'output XML forcé
+    - Parseur plus performant
+    - Quelques fix par ci par là
+    - Futur projet ?
+  
+  * Discussion avec Monsieur Aliprandi concernant l'affichage des résultats
+    - Du fait que l'utilisateur peut sélectionner un profil de scan spécial, il y a forcément des résultats différents en fonction des profils. Que faire dans ce cas ?
+      - **Solution 1:** dynamiser la page des résultats en fonction des champs (fastidieux et enclin à des erreurs / valeurs non existantes)
+      - **Solution 2:** afficher simplement l'output brut d'NMAP
+    - Après avoir demandé à Monsieur Aliprandi, il me valide la **deuxième solution**
+
+  * UI de la page résultats finie
+    - Affichage de l'output d'NMAP
+    - Bouton Traceroute (pas encore fonctionnel)
+    - Bouton Exporter les résultats (pas encore fontionnel)
+    - Bouton Fermer les résultats
+  
+  * Ecran de chargement
+    - Ajout d'un bouton Annuler le scan
