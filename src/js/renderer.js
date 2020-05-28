@@ -91,6 +91,17 @@ function scanIpDoneCallback(event, args) {
 }
 
 /**
+ * Cancels ongoing scan and sends back user to home tab
+ */
+$('#cancelOngoingScan').click(() => {
+    // Send cancel event
+    window.bridge.cancelOngoingScan();
+
+    // Display home tab
+    handleClickNavigation('home');
+});
+
+/**
  * Sends user back to home tab after cancelling scan
  * Also clears inputs
  */

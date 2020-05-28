@@ -10,6 +10,9 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const nmap = require('node-nmap');
 const path = require('path');
 
+// Global scan reference for all events
+let scan = null;
+
 // Auto reload
 require('electron-reload')(__dirname);
 
@@ -82,7 +85,7 @@ ipcMain.on('rendererStartScanIp', (event, args) => {
     const nmapArgs = args.nmapArgs;
 
     // Create new scan object with received IP or domain name and Nmap args
-    const scan = new nmap.NmapScan(toScan, nmapArgs);
+    scan = new nmap.NmapScan(toScan, nmapArgs);
 
     // Reply to event on complete with scan results
     scan.on('complete', () => {
@@ -92,6 +95,11 @@ ipcMain.on('rendererStartScanIp', (event, args) => {
     // Reply to event on error with error flag
     scan.on('error', error => {
         console.error(error); // TODO: send error
+    })
+
+    // Reference cancel event
+    ipcMain.once('rendererCancelScanIp', () => {
+        scan.cancelScan();
     })
 
     // Start scan on the object

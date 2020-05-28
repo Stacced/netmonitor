@@ -19,6 +19,9 @@ contextBridge.exposeInMainWorld(
         startScanIp: (scanArgs) => {
             ipcRenderer.send('rendererStartScanIp', scanArgs);
         },
+        cancelOngoingScan: () => {
+            ipcRenderer.send('rendererCancelScanIp');
+        },
         onScanIpDone: (scanIpDoneCallback) => {
             ipcRenderer.on('mainScanIpDone', scanIpDoneCallback);
         }
