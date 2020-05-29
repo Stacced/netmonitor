@@ -8,10 +8,14 @@
 // Dependencies / imports
 const { app, BrowserWindow, ipcMain } = require('electron');
 const nmap = require('node-nmap');
+const ip = require('ip');
 const path = require('path');
 
 // Global scan reference for all events
 let scan = null;
+
+// Global reference for local IP mask
+let localIpMask = null;
 
 // Auto reload
 require('electron-reload')(__dirname);
@@ -102,6 +106,36 @@ ipcMain.on('rendererStartScanIp', (event, args) => {
         scan.cancelScan();
     })
 
-    // Start scan on the object
+    // Start scan
     scan.startScan();
 })
+
+// Listen to start local net scan event from renderer process
+ipcMain.on('rendererStartScanLocalNet', (event, args) => {
+    // Get local IP mask if not already defined
+    if (localIpMask === null) {
+        localIpMask = ip.mask(ip.address(), ip.fromPrefixLen(24));
+    }
+
+    // Create new scan object with IP range and args
+    // Args will run a fast scan with OS detection and XML output, which will be parsed for us by node-nmap
+    scan = new nmap.NmapScan(localIpMask + '/24', '-T4 -F -O -oX -');
+
+    // Reply to event on complete with scan results
+    scan.on('complete', () => {
+        event.reply('mainScanLocalNetDone', scan.scanResults);
+    });
+
+    // Reply to event on error with error flag
+    scan.on('error', (error) => {
+        console.error(error); // TODO: send error to renderer process
+    });
+
+    // Reference cancel event
+    ipcMain.once('rendererCancelScanIp', () => {
+        scan.cancelScan();
+    })
+
+    // Start scan
+    scan.startScan();
+});

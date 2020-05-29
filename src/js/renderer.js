@@ -128,6 +128,33 @@ $('#closeResults').click(() => {
 });
 
 /**
+ * Sends event to main process to start Nmap scan on local net
+ */
+$('.scanLocalNetLink').click(() => {
+    // Send start scan local net event thru context bridge
+    window.bridge.startScanLocalNet();
+
+    // Display loading screen
+    handleClickNavigation('loadingScreen');
+});
+
+// Register callback for scan local net done event
+window.bridge.onScanLocalNetDone(scanLocalNetDoneCallback);
+
+/**
+ * Callback function for local net scan completion
+ * @param event
+ * @param args
+ */
+function scanLocalNetDoneCallback(event, args) {
+    // Display local net scan results
+    handleClickNavigation('scanLocalNet');
+
+    // Populate devices container with actual detected devices
+    console.log(args);
+}
+
+/**
  * Sets active tab in navbar (basically adds the "active" class to nav link)
  * @param tab
  */

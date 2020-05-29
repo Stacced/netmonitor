@@ -21,7 +21,7 @@
                     <a class="nav-link" id="scanIpLink" onclick="handleClickNavigation('scanIp')">Scan IP & nom de domaine</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="scanLocalNetLink" onclick="handleClickNavigation('scanLocalNet')">Scan réseau local</a>
+                    <a class="nav-link scanLocalNetLink">Scan réseau local</a>
                 </li>
             </ul>
             <button id="minimizeApp" class="btn btn-secondary">Minimiser</button>
@@ -35,7 +35,7 @@
             <img src="img/ip-logo.png" alt="Logo scan IP"/><br>
             <span>Scan par IP ou nom de domaine</span>
         </div>
-        <div class="homeChoice" onclick="handleClickNavigation('scanLocalNet')">
+        <div class="homeChoice scanLocalNetLink">
             <img src="img/localnet-logo.png" alt="Logo scan local net"/><br>
             <span>Scan du réseau local</span>
         </div>
@@ -80,7 +80,15 @@
     </div>
 </div>
 <div class="container tab" id="scanLocalNet">
-    <span>Page scan réseau local</span>
+    <div class="d-flex justify-content-around mt-3">
+        <div>
+            <h4>Plage IP scannée ➡️ </h4><h4 id="scannedRange"></h4>
+        </div>
+        <div>
+            <h4>Nombre de machines détectées ➡️ </h4><h4 id="detectedDevices"></h4>
+        </div>
+    </div>
+    <div class="container overflow-auto shadow-lg rounded mt-3" id="devicesContainer"></div>
 </div>
 <div class="container tab" id="scanResults">
     <div class="row">
