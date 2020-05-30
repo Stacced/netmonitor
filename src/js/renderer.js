@@ -87,11 +87,7 @@ function scanIpDoneCallback(event, args) {
     handleClickNavigation('scanResults');
 
     // Load results in <pre> tag
-    $('#scanResultsText').text(args);
-
-    // Add simplebar and re-render it
-    const simplebar = new SimpleBar($('#scanResultsText')[0]);
-    simplebar.recalculate();
+    $('#scanResultsText .simplebar-content').text(args);
 }
 
 /**
