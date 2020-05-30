@@ -123,7 +123,7 @@ ipcMain.on('rendererStartScanLocalNet', (event, args) => {
 
     // Reply to event on complete with scan results
     scan.on('complete', () => {
-        event.reply('mainScanLocalNetDone', scan.scanResults);
+        event.reply('mainScanLocalNetDone', {results: scan.scanResults, scannedRange: localIpMask, machinesCount: scan.scanResults.length});
     });
 
     // Reply to event on error with error flag

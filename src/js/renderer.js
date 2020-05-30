@@ -147,7 +147,49 @@ function scanLocalNetDoneCallback(event, args) {
     handleClickNavigation('scanLocalNet');
 
     // Populate devices container with actual detected devices
-    console.log(args);
+    $('#scannedRange').text(args.scannedRange);
+    $('#machinesCount').text(args.machinesCount);
+
+    // Clear previous results
+    $('#devicesContainer .simplebar-content').text('');
+
+    // Loop over machines and add them to our list
+    const machineChunks = chunkArray(args.results, 4);
+    machineChunks.forEach(chunk => {
+        // Create row
+        const row = document.createElement('div');
+        row.classList.add('row');
+        row.classList.add('text-center');
+        row.classList.add('mt-4');
+
+        // Loop over machines and add them to the row
+        chunk.forEach(machine => {
+            let iconPath;
+            let osName = machine.osNmap !== null ? machine.osNmap.toString() : "";
+
+            // Select appropriate icon
+            if (osName.includes('Windows')) {
+                iconPath = "img/w10-logo.png";
+            } else if (osName.includes('Apple')) {
+                iconPath = "img/macos-logo.png";
+            } else if (osName.includes('Linux')) {
+                iconPath = "img/linux-logo.png";
+            } else {
+                iconPath = "img/unknown-os.png";
+            }
+
+            // Create machine div
+            const div = document.createElement('div');
+            div.classList.add('col');
+            div.innerHTML = `<img src="${iconPath}" alt="Logo OS"/><br><span>${machine.hostname}</span>`;
+
+            // Append machine to row
+            row.append(div);
+        });
+
+        // Append row to container
+        $('#devicesContainer .simplebar-content').append(row);
+    });
 }
 
 /**
@@ -179,4 +221,23 @@ function handleClickNavigation(tab) {
             $(tabElement).css('display', 'none');
         }
     });
+}
+
+/**
+ * Returns an array with arrays of the given size.
+ * https://ourcodeworld.com/articles/read/278/how-to-split-an-array-into-chunks-of-the-same-size-easily-in-javascript
+ *
+ * @param array {Array} array to split
+ * @param chunkSize {int} Size of every group
+ */
+function chunkArray(array, chunkSize) {
+    // Array containing all chunks
+    const chunks = [];
+
+    for (let i = 0; i < array.length; i += chunkSize) {
+        // Push chunk into array
+        chunks.push(array.slice(i, i + chunkSize));
+    }
+
+    return chunks;
 }

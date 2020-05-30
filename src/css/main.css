@@ -97,3 +97,18 @@ img {
     height: 60vh;
     width: 100%;
 }
+
+/*
+ * LOCAL NET SCAN TAB STYLING
+ */
+#scanLocalNet h4 {
+    display: inline;
+}
+
+#scanLocalNet img {
+    height: 100px;
+}
+
+#devicesContainer {
+    height: 75vh;
+}
