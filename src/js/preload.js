@@ -30,6 +30,9 @@ contextBridge.exposeInMainWorld(
         },
         onScanLocalNetDone: (scanLocalNetDoneCallback) => {
             ipcRenderer.on('mainScanLocalNetDone', scanLocalNetDoneCallback);
+        },
+        exportResults: (results) => {
+            ipcRenderer.send('rendererExportResults', results);
         }
     }
 )

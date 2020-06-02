@@ -193,6 +193,15 @@ function scanLocalNetDoneCallback(event, args) {
 }
 
 /**
+ * Handles export result button click
+ * Sends export results event to main process with results
+ */
+$('#exportResults').click(() => {
+    // Ask user to choose export path
+    window.bridge.exportResults($('#scanResultsText .simplebar-content').text());
+});
+
+/**
  * Sets active tab in navbar (basically adds the "active" class to nav link)
  * @param tab
  */

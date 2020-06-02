@@ -6,9 +6,10 @@
  */
 
 // Dependencies / imports
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const nmap = require('node-nmap');
 const ip = require('ip');
+const fs = require('fs');
 const path = require('path');
 
 // Global scan reference for all events
@@ -138,4 +139,35 @@ ipcMain.on('rendererStartScanLocalNet', (event, args) => {
 
     // Start scan
     scan.startScan();
+});
+
+ipcMain.on('rendererExportResults', (event, args) => {
+    // Define general dialog options
+    const dialogOptions = {
+        title: "NetMonitor - Exporter les résultats",
+        defaultPath: "%userprofile%\\.",
+        buttonLabel: "Sauvegarder les résultats",
+        filters: [
+            { name: 'Fichiers texte', extensions: ['txt'] },
+            { name: 'Tous les fichiers', extensions: ['*'] }
+        ]
+    }
+
+    // Ask filename from user (blocking call, this is on purpose)
+    const savePath = dialog.showSaveDialogSync(BrowserWindow.getFocusedWindow(), dialogOptions);
+
+    // Write the file to the selected savePath if dialog wasn't cancelled (savePath != to undefined)
+    if (savePath !== undefined) {
+        fs.writeFile(savePath, args, err => {
+            if (err) {
+                dialog.showErrorBox('NetMonitor - Erreur', `Une erreur est survenue à la sauvegarde des résults : ${err.message}`);
+            } else {
+                dialog.showMessageBoxSync(BrowserWindow.getFocusedWindow(), {
+                    type: 'info',
+                    title: 'NetMonitor - Sauvegarde réussie',
+                    message: 'Les résultats du scan ont bien été exportés dans le fichier ' + savePath
+                });
+            }
+        });
+    }
 });
