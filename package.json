@@ -17,7 +17,7 @@
     "name": "Batman",
     "email": "20029433+Stacced@users.noreply.github.com"
   },
-  "license": "MIT",
+  "license": "GPL-3.0",
   "config": {
     "forge": {
       "packagerConfig": {},
