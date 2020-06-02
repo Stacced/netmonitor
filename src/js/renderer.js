@@ -6,15 +6,15 @@
  */
 // Constants
 const profileArgs = {
-    default: "",
-    fast: "-T4 -F",
-    fastplus: "-sV -T4 -O -F --version-light",
-    intense: "-T4 -A -v",
-    intenseudp: "-sS -sU -T4 -A -v",
-    intensenop: "-T4 -A -v -Pn",
-    ping: "-sn",
-    custom: ""
-}
+    default: '',
+    fast: '-T4 -F',
+    fastplus: '-sV -T4 -O -F --version-light',
+    intense: '-T4 -A -v',
+    intenseudp: '-sS -sU -T4 -A -v',
+    intensenop: '-T4 -A -v -Pn',
+    ping: '-sn',
+    custom: '',
+};
 
 // Global variables
 let selectedProfile = 'default';
@@ -25,7 +25,7 @@ let performedLocalNetScan = false;
  */
 $('#closeApp').click(() => {
     window.bridge.closeApp();
-})
+});
 
 /**
  * Sends an event to the main process thru our context bridge to minimize app
@@ -55,7 +55,7 @@ $('#scanProfile').change(() => {
     $('#nmapToScan').val($('#ipAddress').val());
 
     // Check if selected profile is custom to enable / disable args field
-    if (selectedProfile === "custom") {
+    if (selectedProfile === 'custom') {
         $('#nmapArgs').prop('readonly', false);
     } else {
         $('#nmapArgs').prop('readonly', true);
@@ -71,7 +71,7 @@ $('#startScan').click(() => {
     const nmapArgs = $('#nmapArgs').val();
 
     // Send start scan event thru context bridge
-    window.bridge.startScanIp({ip: toScan, nmapArgs: nmapArgs});
+    window.bridge.startScanIp({ ip: toScan, nmapArgs: nmapArgs });
 
     // Display loading screen
     handleClickNavigation('loadingScreen');
@@ -164,7 +164,7 @@ function scanLocalNetDoneCallback(event, args) {
 
     // Loop over machines and add them to our list
     const machineChunks = chunkArray(args.results, 4);
-    machineChunks.forEach(chunk => {
+    machineChunks.forEach((chunk) => {
         // Create row
         const row = document.createElement('div');
         row.classList.add('row');
@@ -172,19 +172,20 @@ function scanLocalNetDoneCallback(event, args) {
         row.classList.add('mt-4');
 
         // Loop over machines and add them to the row
-        chunk.forEach(machine => {
+        chunk.forEach((machine) => {
             let iconPath;
-            let osName = machine.osNmap !== null ? machine.osNmap.toString() : "";
+            let osName =
+                machine.osNmap !== null ? machine.osNmap.toString() : '';
 
             // Select appropriate icon
             if (osName.includes('Windows')) {
-                iconPath = "img/w10-logo.png";
+                iconPath = 'img/w10-logo.png';
             } else if (osName.includes('Apple')) {
-                iconPath = "img/macos-logo.png";
+                iconPath = 'img/macos-logo.png';
             } else if (osName.includes('Linux')) {
-                iconPath = "img/linux-logo.png";
+                iconPath = 'img/linux-logo.png';
             } else {
-                iconPath = "img/unknown-os.png";
+                iconPath = 'img/unknown-os.png';
             }
 
             // Create machine div
@@ -198,7 +199,7 @@ function scanLocalNetDoneCallback(event, args) {
 
                 // Pre-fill IP address field with selected machine's IP
                 $('#ipAddress').val(machine.ip);
-            })
+            });
 
             // Append machine to row
             row.append(div);
@@ -215,7 +216,7 @@ $('#restartScanLocalNet').click(() => {
 
     // Simulate local net scan click
     $('.scanLocalNetLink').click();
-})
+});
 
 /**
  * Handles export result button click
@@ -223,7 +224,9 @@ $('#restartScanLocalNet').click(() => {
  */
 $('#exportResults').click(() => {
     // Ask user to choose export path
-    window.bridge.exportResults($('#scanResultsText .simplebar-content').text());
+    window.bridge.exportResults(
+        $('#scanResultsText .simplebar-content').text()
+    );
 });
 
 /**
@@ -231,7 +234,7 @@ $('#exportResults').click(() => {
  * @param tab
  */
 function setActiveTab(tab) {
-    $(".nav-link").removeClass('active');
+    $('.nav-link').removeClass('active');
     $(`#${tab}Link`).addClass('active');
 }
 

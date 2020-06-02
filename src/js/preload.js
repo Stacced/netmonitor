@@ -8,31 +8,29 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 // Expose protected methods that renderer process can use
-contextBridge.exposeInMainWorld(
-    'bridge', {
-        closeApp: () => {
-            ipcRenderer.send('rendererCloseApp');
-        },
-        minimizeApp: () => {
-            ipcRenderer.send('rendererMinimizeApp');
-        },
-        startScanIp: (scanArgs) => {
-            ipcRenderer.send('rendererStartScanIp', scanArgs);
-        },
-        cancelOngoingScan: () => {
-            ipcRenderer.send('rendererCancelScanIp');
-        },
-        onScanIpDone: (scanIpDoneCallback) => {
-            ipcRenderer.on('mainScanIpDone', scanIpDoneCallback);
-        },
-        startScanLocalNet: () => {
-            ipcRenderer.send('rendererStartScanLocalNet');
-        },
-        onScanLocalNetDone: (scanLocalNetDoneCallback) => {
-            ipcRenderer.on('mainScanLocalNetDone', scanLocalNetDoneCallback);
-        },
-        exportResults: (results) => {
-            ipcRenderer.send('rendererExportResults', results);
-        }
-    }
-)
+contextBridge.exposeInMainWorld('bridge', {
+    closeApp: () => {
+        ipcRenderer.send('rendererCloseApp');
+    },
+    minimizeApp: () => {
+        ipcRenderer.send('rendererMinimizeApp');
+    },
+    startScanIp: (scanArgs) => {
+        ipcRenderer.send('rendererStartScanIp', scanArgs);
+    },
+    cancelOngoingScan: () => {
+        ipcRenderer.send('rendererCancelScanIp');
+    },
+    onScanIpDone: (scanIpDoneCallback) => {
+        ipcRenderer.on('mainScanIpDone', scanIpDoneCallback);
+    },
+    startScanLocalNet: () => {
+        ipcRenderer.send('rendererStartScanLocalNet');
+    },
+    onScanLocalNetDone: (scanLocalNetDoneCallback) => {
+        ipcRenderer.on('mainScanLocalNetDone', scanLocalNetDoneCallback);
+    },
+    exportResults: (results) => {
+        ipcRenderer.send('rendererExportResults', results);
+    },
+});

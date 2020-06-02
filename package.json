@@ -44,11 +44,18 @@
       ]
     }
   },
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 4,
+    "semi": true,
+    "singleQuote": true,
+    "endOfLine": "crlf"
+  },
   "dependencies": {
     "electron-reload": "^1.5.0",
     "electron-squirrel-startup": "^1.0.0",
     "ip": "^1.1.5",
-    "node-nmap": "Stacced/node-nmap"
+    "node-nmap": "https://github.com/Stacced/node-nmap/"
   },
   "devDependencies": {
     "@electron-forge/cli": "6.0.0-beta.51",
@@ -56,6 +63,7 @@
     "@electron-forge/maker-rpm": "6.0.0-beta.51",
     "@electron-forge/maker-squirrel": "6.0.0-beta.51",
     "@electron-forge/maker-zip": "6.0.0-beta.51",
-    "electron": "9.0.0"
+    "electron": "9.0.0",
+    "prettier": "2.0.5"
   }
 }

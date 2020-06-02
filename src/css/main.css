@@ -13,7 +13,10 @@
 /*
  GLOBAL STYLING ON ALL PAGES
  */
-#scanIp, #scanLocalNet, #scanResults, #loadingScreen {
+#scanIp,
+#scanLocalNet,
+#scanResults,
+#loadingScreen {
     display: none;
     -webkit-user-select: none;
 }
@@ -32,7 +35,8 @@ img {
     -webkit-app-region: drag;
 }
 
-.nav-link, .navbar-brand {
+.nav-link,
+.navbar-brand {
     -webkit-app-region: no-drag;
     -webkit-user-select: none;
 }

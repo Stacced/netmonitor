@@ -8,7 +8,7 @@
 // Dependencies / imports
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const nmap = require('node-nmap');
-nmap.nmapLocation = "nmap-7.80/nmap.exe";
+nmap.nmapLocation = 'nmap-7.80/nmap.exe';
 const ip = require('ip');
 const fs = require('fs');
 const path = require('path');
@@ -23,7 +23,8 @@ let localIpMask = null;
 require('electron-reload')(__dirname);
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
-if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
+if (require('electron-squirrel-startup')) {
+    // eslint-disable-line global-require
     app.quit();
 }
 
@@ -38,8 +39,8 @@ const createWindow = () => {
         webPreferences: {
             contextIsolation: true,
             enableRemoteModule: false,
-            preload: path.join(__dirname, 'js/preload.js')
-        }
+            preload: path.join(__dirname, 'js/preload.js'),
+        },
     });
 
     // and load the index.html of the app.
@@ -82,7 +83,7 @@ ipcMain.on('rendererCloseApp', () => {
 // Listen to minimize event from renderer process
 ipcMain.on('rendererMinimizeApp', () => {
     BrowserWindow.getFocusedWindow().minimize();
-})
+});
 
 // Listen to start IP scan event from renderer process
 ipcMain.on('rendererStartScanIp', (event, args) => {
@@ -99,18 +100,18 @@ ipcMain.on('rendererStartScanIp', (event, args) => {
     });
 
     // Reply to event on error with error flag
-    scan.on('error', error => {
+    scan.on('error', (error) => {
         console.error(error); // TODO: send error
-    })
+    });
 
     // Reference cancel event
     ipcMain.once('rendererCancelScanIp', () => {
         scan.cancelScan();
-    })
+    });
 
     // Start scan
     scan.startScan();
-})
+});
 
 // Listen to start local net scan event from renderer process
 ipcMain.on('rendererStartScanLocalNet', (event, args) => {
@@ -125,7 +126,11 @@ ipcMain.on('rendererStartScanLocalNet', (event, args) => {
 
     // Reply to event on complete with scan results
     scan.on('complete', () => {
-        event.reply('mainScanLocalNetDone', {results: scan.scanResults, scannedRange: localIpMask, machinesCount: scan.scanResults.length});
+        event.reply('mainScanLocalNetDone', {
+            results: scan.scanResults,
+            scannedRange: localIpMask,
+            machinesCount: scan.scanResults.length,
+        });
     });
 
     // Reply to event on error with error flag
@@ -136,7 +141,7 @@ ipcMain.on('rendererStartScanLocalNet', (event, args) => {
     // Reference cancel event
     ipcMain.once('rendererCancelScanIp', () => {
         scan.cancelScan();
-    })
+    });
 
     // Start scan
     scan.startScan();
@@ -145,28 +150,36 @@ ipcMain.on('rendererStartScanLocalNet', (event, args) => {
 ipcMain.on('rendererExportResults', (event, args) => {
     // Define general dialog options
     const dialogOptions = {
-        title: "NetMonitor - Exporter les résultats",
-        defaultPath: "%userprofile%\\.",
-        buttonLabel: "Sauvegarder les résultats",
+        title: 'NetMonitor - Exporter les résultats',
+        defaultPath: '%userprofile%\\.',
+        buttonLabel: 'Sauvegarder les résultats',
         filters: [
             { name: 'Fichiers texte', extensions: ['txt'] },
-            { name: 'Tous les fichiers', extensions: ['*'] }
-        ]
-    }
+            { name: 'Tous les fichiers', extensions: ['*'] },
+        ],
+    };
 
     // Ask filename from user (blocking call, this is on purpose)
-    const savePath = dialog.showSaveDialogSync(BrowserWindow.getFocusedWindow(), dialogOptions);
+    const savePath = dialog.showSaveDialogSync(
+        BrowserWindow.getFocusedWindow(),
+        dialogOptions
+    );
 
     // Write the file to the selected savePath if dialog wasn't cancelled (savePath != to undefined)
     if (savePath !== undefined) {
-        fs.writeFile(savePath, args, err => {
+        fs.writeFile(savePath, args, (err) => {
             if (err) {
-                dialog.showErrorBox('NetMonitor - Erreur', `Une erreur est survenue à la sauvegarde des résults : ${err.message}`);
+                dialog.showErrorBox(
+                    'NetMonitor - Erreur',
+                    `Une erreur est survenue à la sauvegarde des résults : ${err.message}`
+                );
             } else {
                 dialog.showMessageBoxSync(BrowserWindow.getFocusedWindow(), {
                     type: 'info',
                     title: 'NetMonitor - Sauvegarde réussie',
-                    message: 'Les résultats du scan ont bien été exportés dans le fichier ' + savePath
+                    message:
+                        'Les résultats du scan ont bien été exportés dans le fichier ' +
+                        savePath,
                 });
             }
         });
