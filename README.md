@@ -26,6 +26,9 @@ sauts réalisés par le programme sur une carte du monde
 
 **Cette application a été développée dans le cadre du travail pratique individuel (TPI).**
 
+**PS: Cette application intègre la version (portable) 7.80 du logiciel Nmap, qui est publié sous licence GNU GPL 2.0 (modifiée),
+qui me permet de redistribuer une copie dudit logiciel.** La licence est accessible [ici](nmap-7.80/COPYING)
+
 ## Outils utilisés
 
 Mon but est de construire cette application avec les outils suivants :

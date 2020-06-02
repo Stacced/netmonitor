@@ -8,6 +8,7 @@
 // Dependencies / imports
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const nmap = require('node-nmap');
+nmap.nmapLocation = "nmap-7.80/nmap.exe";
 const ip = require('ip');
 const fs = require('fs');
 const path = require('path');
