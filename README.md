@@ -158,8 +158,50 @@ Aucune pour le moment.
   * UI de la page résultats finie
     - Affichage de l'output d'NMAP
     - Bouton Traceroute (pas encore fonctionnel)
-    - Bouton Exporter les résultats (pas encore fontionnel)
+    - Bouton Exporter les résultats
     - Bouton Fermer les résultats
   
   * Ecran de chargement
     - Ajout d'un bouton Annuler le scan
+    
+  * Export des résultats
+    - L'utilisateur peut choisir un fichier texte dans lequel sauvegarder les résultats
+    - Notification si opération réussie ou non
+----
+**29.05.2020**
+  * Récap du travail de la veille
+  
+  * Dans les résultats de scan, j'ai remarqué que les accents n'étaient pas bien formattés. Après quelques recherches, il s'avère que c'est un problème inhérent à NMAP. A moins de trouver une solution de mon coté, ça ne sera pas fix.
+  
+  * UI de la page résultats scan réseau local presque finie
+    - Affichage de la plage IP scannée
+    - Affichage du nombre de machines détectées
+    - Manque affichage des machines (sera fait demain)
+  
+  * Backend du scan réseau local fini
+    - Il ne reste plus qu'à lier le backend à l'UI
+    
+  * Avancement doc technique
+    - Analyse organique
+  
+  * Tests
+----
+**01.06.2020**
+  * Congé (Pentecôte)
+----
+**02.06.2020**
+  * Récap du travail du 29.05
+  
+  * Affichage des machines détectées sur la page résultats scan réseau local
+    - Icône de l'OS détecté
+    - Nom de domaine local
+    - Cliquer sur une machine redirige l'utilisateur sur la page scan IP et remplit automatiquement le champ adresse IP avec l'IP de la machine sélectionnée
+  
+  * Quelques modifications sur la page résultats scan réseau local
+    - Désormais, cliquer sur "Scan réseau local" dans la barre de navigation ne redémarrera pas un scan automatiquement. L'utilisateur devra cliquer sur le bouton "Relancer le scan" sur la page des résultats.
+  
+  * Documentation technique
+    - Finalisation de la partie analyse organique
+    
+  * Tests
+
