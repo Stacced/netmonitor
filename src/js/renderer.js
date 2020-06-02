@@ -18,6 +18,7 @@ const profileArgs = {
 
 // Global variables
 let selectedProfile = 'default';
+let performedLocalNetScan = false;
 
 /**
  * Sends an event to the main process thru our context bridge to close app
@@ -127,11 +128,16 @@ $('#closeResults').click(() => {
  * Sends event to main process to start Nmap scan on local net
  */
 $('.scanLocalNetLink').click(() => {
-    // Send start scan local net event thru context bridge
-    window.bridge.startScanLocalNet();
+    // Check if scan was already performed
+    if (!performedLocalNetScan) {
+        // Send start scan local net event thru context bridge
+        window.bridge.startScanLocalNet();
 
-    // Display loading screen
-    handleClickNavigation('loadingScreen');
+        // Display loading screen
+        handleClickNavigation('loadingScreen');
+    } else {
+        handleClickNavigation('scanLocalNet');
+    }
 });
 
 // Register callback for scan local net done event
@@ -143,6 +149,9 @@ window.bridge.onScanLocalNetDone(scanLocalNetDoneCallback);
  * @param args
  */
 function scanLocalNetDoneCallback(event, args) {
+    // Update performed scan var
+    performedLocalNetScan = true;
+
     // Display local net scan results
     handleClickNavigation('scanLocalNet');
 
@@ -191,6 +200,14 @@ function scanLocalNetDoneCallback(event, args) {
         $('#devicesContainer .simplebar-content').append(row);
     });
 }
+
+$('#restartScanLocalNet').click(() => {
+    // Update performed scan var
+    performedLocalNetScan = false;
+
+    // Simulate local net scan click
+    $('.scanLocalNetLink').click();
+})
 
 /**
  * Handles export result button click
