@@ -110,5 +110,9 @@ img {
 }
 
 #devicesContainer {
-    height: 75vh;
+    height: 65vh;
+}
+
+#restartScanLocalNet {
+    margin: 0 0 1.5rem 60px;
 }
