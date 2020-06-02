@@ -116,3 +116,7 @@ img {
 #restartScanLocalNet {
     margin: 0 0 1.5rem 60px;
 }
+
+.detectedMachine > img:hover {
+    cursor: pointer;
+}

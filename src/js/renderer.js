@@ -190,6 +190,7 @@ function scanLocalNetDoneCallback(event, args) {
             // Create machine div
             const div = document.createElement('div');
             div.classList.add('col');
+            div.classList.add('detectedMachine');
             div.innerHTML = `<img src="${iconPath}" alt="Logo OS"/><br><span>${machine.hostname}</span>`;
             div.addEventListener('click', () => {
                 // Redirect user to scan IP tab
