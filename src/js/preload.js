@@ -15,6 +15,12 @@ contextBridge.exposeInMainWorld('bridge', {
     minimizeApp: () => {
         ipcRenderer.send('rendererMinimizeApp');
     },
+    showMessageBox: (content) => {
+        ipcRenderer.send('rendererShowMessageBox', content);
+    },
+    showErrorBox: (content) => {
+        ipcRenderer.send('rendererShowErrorBox', content);
+    },
     startScanIp: (scanArgs) => {
         ipcRenderer.send('rendererStartScanIp', scanArgs);
     },

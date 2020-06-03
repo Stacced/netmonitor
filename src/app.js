@@ -85,6 +85,22 @@ ipcMain.on('rendererMinimizeApp', () => {
     BrowserWindow.getFocusedWindow().minimize();
 });
 
+// Listen to show message box event from renderer process
+ipcMain.on('rendererShowMessageBox', (event, message) => {
+    // Display message box
+    dialog.showMessageBoxSync(BrowserWindow.getFocusedWindow(), {
+        type: 'info',
+        title: 'NetMonitor - Information',
+        message: message,
+    });
+});
+
+// Listen to show error box event from renderer process
+ipcMain.on('rendererShowErrorBox', (event, message) => {
+    // Display error box
+    dialog.showErrorBox('NetMonitor - Erreur', message);
+});
+
 // Listen to start IP scan event from renderer process
 ipcMain.on('rendererStartScanIp', (event, args) => {
     // Extract data from args object
