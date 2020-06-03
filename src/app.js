@@ -187,7 +187,7 @@ ipcMain.on('rendererExportResults', (event, args) => {
             if (err) {
                 dialog.showErrorBox(
                     'NetMonitor - Erreur',
-                    `Une erreur est survenue à la sauvegarde des résults : ${err.message}`
+                    `Une erreur est survenue à la sauvegarde des résultats : ${err.message}`
                 );
             } else {
                 dialog.showMessageBoxSync(BrowserWindow.getFocusedWindow(), {
