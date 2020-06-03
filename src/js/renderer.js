@@ -16,6 +16,18 @@ const profileArgs = {
     custom: '',
 };
 
+// Initialize Leaflet map
+const hopsMap = L.map('hopsMap').setView([46, 4], 5);
+
+// Add world map layer
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+}).addTo(hopsMap);
+
+// Add hops layer
+const hopsLayer = L.featureGroup().addTo(hopsMap);
+
 // Global variables
 let selectedProfile = 'default';
 let performedLocalNetScan = false;
@@ -266,6 +278,11 @@ function handleClickNavigation(tab) {
             $(tabElement).css('display', 'none');
         }
     });
+
+    // If selected tab is traceroute, invalidate map size to load tiles properly
+    if (tab === 'traceroute') {
+        hopsMap.invalidateSize();
+    }
 }
 
 /**

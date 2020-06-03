@@ -16,6 +16,7 @@
 #scanIp,
 #scanLocalNet,
 #scanResults,
+#traceroute,
 #loadingScreen {
     display: none;
     -webkit-user-select: none;
@@ -123,4 +124,16 @@ img {
 
 .detectedMachine > img:hover {
     cursor: pointer;
+}
+
+/*
+ * VISUAL TRACEROUTE STYLING
+ */
+#traceroute {
+    padding-top: 20px;
+}
+
+#hopsMap {
+    height: 385px;
+    border: 1px solid black;
 }
