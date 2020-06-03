@@ -56,7 +56,8 @@
     "electron-reload": "^1.5.0",
     "electron-squirrel-startup": "^1.0.0",
     "ip": "^1.1.5",
-    "node-nmap": "https://github.com/Stacced/node-nmap/"
+    "node-nmap": "https://github.com/Stacced/node-nmap/",
+    "validator": "^13.0.0"
   },
   "devDependencies": {
     "@electron-forge/cli": "6.0.0-beta.51",

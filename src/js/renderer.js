@@ -70,11 +70,19 @@ $('#startScan').click(() => {
     const toScan = $('#ipAddress').val();
     const nmapArgs = $('#nmapArgs').val();
 
-    // Send start scan event thru context bridge
-    window.bridge.startScanIp({ ip: toScan, nmapArgs: nmapArgs });
+    // Validate fields
+    if (window.bridge.validateIp(toScan)) {
+        // Send start scan event thru context bridge
+        window.bridge.startScanIp({ ip: toScan, nmapArgs: nmapArgs });
 
-    // Display loading screen
-    handleClickNavigation('loadingScreen');
+        // Display loading screen
+        handleClickNavigation('loadingScreen');
+    } else {
+        // Display error box
+        window.bridge.showErrorBox(
+            "L'IP ou nom de domaine entré n'est pas valide !"
+        );
+    }
 });
 
 // Register callback for scan IP done event

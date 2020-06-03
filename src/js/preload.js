@@ -6,6 +6,7 @@
  */
 // Require the stuff we're gonna need
 const { contextBridge, ipcRenderer } = require('electron');
+const validator = require('validator');
 
 // Expose protected methods that renderer process can use
 contextBridge.exposeInMainWorld('bridge', {
@@ -14,6 +15,9 @@ contextBridge.exposeInMainWorld('bridge', {
     },
     minimizeApp: () => {
         ipcRenderer.send('rendererMinimizeApp');
+    },
+    validateIp: (ip) => {
+        return validator.isFQDN(ip) || validator.isIP(ip);
     },
     showMessageBox: (content) => {
         ipcRenderer.send('rendererShowMessageBox', content);
