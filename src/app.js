@@ -19,6 +19,7 @@ const httpGet = require('http').get;
 let scan = null;
 let localIpMask = null;
 let tracer = null;
+let tracerPid = null;
 
 // Auto reload
 require('electron-reload')(__dirname);
@@ -233,6 +234,11 @@ ipcMain.on('rendererStartTraceroute', (event, args) => {
         });
     });
 
+    // Save process PID for later if user wants to stop it
+    tracer.on('pid', (pid) => {
+        tracerPid = pid;
+    });
+
     // Send event to renderer process that traceroute is done
     tracer.on('close', (code) => {
         event.reply('mainTracerouteDone', code);
@@ -244,5 +250,6 @@ ipcMain.on('rendererStartTraceroute', (event, args) => {
 
 // Listen to stop traceroute event from renderer process
 ipcMain.on('rendererStopTraceroute', (event, args) => {
-    // TODO: use process.kill(pid) to stop traceroute
+    // Kill traceroute process
+    process.kill(tracerPid);
 });

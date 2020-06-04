@@ -16,7 +16,8 @@ const profileArgs = {
     custom: '',
 };
 
-// Global variables for traceroute
+// Global variables
+let currentEvent = '';
 let prevLat = null;
 let prevLon = null;
 let polyLine = null;
@@ -95,6 +96,9 @@ $('#startScan').click(() => {
 
         // Display loading screen
         handleClickNavigation('loadingScreen');
+
+        // Set current event
+        currentEvent = 'scan';
     } else {
         // Display error box
         window.bridge.showErrorBox(
@@ -120,9 +124,16 @@ function scanIpDoneCallback(event, args) {
 /**
  * Cancels ongoing scan and sends back user to home tab
  */
-$('#cancelOngoingScan').click(() => {
-    // Send cancel event
-    window.bridge.cancelOngoingScan();
+$('#cancelOngoingOperation').click(() => {
+    // Send cancel event depending what type of event the user was running
+    if (currentEvent === 'scan') {
+        window.bridge.cancelOngoingScan();
+    } else if (currentEvent === 'traceroute') {
+        window.bridge.cancelTraceroute();
+
+        // Clear temp traceroute results
+        resetTraceroute();
+    }
 
     // Display home tab
     handleClickNavigation('home');
@@ -265,16 +276,16 @@ $('#startTraceroute').click(() => {
     // Validate field
     if (window.bridge.validateIp(toScan)) {
         // Clear previous results
-        hopsLayer.clearLayers();
-        polyLine = null;
-        hopCount = 0;
-        $('#hops tbody').text('');
+        resetTraceroute();
 
         // Send event to main process to start traceroute
         window.bridge.startTraceroute(toScan);
 
         // Send user to loading screen
         handleClickNavigation('loadingScreen');
+
+        // Set current event
+        currentEvent = 'traceroute';
     } else {
         // Display error box
         window.bridge.showErrorBox(
@@ -351,6 +362,17 @@ function onTracerouteDoneCallback(event, statusCode) {
 
     // Fit map zoom to layer bounds
     hopsMap.fitBounds(hopsLayer.getBounds());
+}
+
+/**
+ * Resets traceroute page to default state
+ */
+function resetTraceroute() {
+    // Clear everything !
+    hopsLayer.clearLayers();
+    polyLine = null;
+    hopCount = 0;
+    $('#hops tbody').text('');
 }
 
 /**

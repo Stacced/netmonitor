@@ -46,6 +46,9 @@ contextBridge.exposeInMainWorld('bridge', {
     startTraceroute: (toScan) => {
         ipcRenderer.send('rendererStartTraceroute', toScan);
     },
+    cancelTraceroute: () => {
+        ipcRenderer.send('rendererStopTraceroute');
+    },
     onTracerouteReceivedHopData: (receivedHopDataCallback) => {
         ipcRenderer.on('mainReceivedHopData', receivedHopDataCallback);
     },
