@@ -114,7 +114,7 @@
         <h1 id="tracerouteHeader">Traceroute visuel</h1>
     </div>
     <div class="row">
-        <div class="col">
+        <div class="col" id="hopsMainContainer">
             <div class="card">
                 <div class="card-body">
                     <div class="input-group input-group-sm">
@@ -125,21 +125,23 @@
                     </div>
                 </div>
             </div>
-            <table class="table table-striped" id="hops">
-                <thead>
-                <tr>
-                    <th>Saut</th>
-                    <th>IP</th>
-                    <th>Ville</th>
-                    <th>Région</th>
-                    <th>Pays</th>
-                </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+            <div id="hopsTableContainer">
+                <table class="table table-striped" id="hops">
+                    <thead>
+                    <tr>
+                        <th>Saut</th>
+                        <th>IP</th>
+                        <th>Ville</th>
+                        <th>Région</th>
+                        <th>Pays</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="col">
+        <div class="col" id="hopsMapContainer">
             <div id="hopsMap"></div>
         </div>
     </div>

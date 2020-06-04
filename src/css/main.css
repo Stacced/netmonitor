@@ -133,6 +133,24 @@ img {
     padding-top: 20px;
 }
 
+#hopsMainContainer {
+    padding-left: 0;
+}
+
+#hopsTableContainer {
+    height: 300px;
+    overflow-y: auto;
+}
+
+#hopsTableContainer thead th {
+    position: sticky;
+    top: 0;
+}
+
+#hopsMapContainer {
+    padding: 0 0 0 15px;
+}
+
 #hopsMap {
     height: 385px;
     border: 1px solid black;
