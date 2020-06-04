@@ -212,7 +212,7 @@ Aucune pour le moment.
     - Recherches préliminaires
       - [NodeJS-Traceroute](https://www.npmjs.com/package/nodejs-traceroute) sera utilisé pour le traceroute en lui-même
       - [Leaflet](https://leafletjs.com/) sera utilisé pour l'affichage de la carte du monde avec OpenStreetMaps pour les tiles
-    - Croquis ![Croquis interface](https://i.imgur.com/zdhMvJI.png)
+      ![Croquis interface](https://i.imgur.com/zdhMvJI.png)
   
   * UI Traceroute
     - Leaflet m'a posé quelques soucis, notamment parce qu'il fallait refresh la taille de son conteneur pour que les tiles s'affichent proprement
@@ -227,4 +227,33 @@ Aucune pour le moment.
   * Documentation technique
     - Avancement partie analyse organique
   
+  * Tests
+----
+**04.06.2020**
+  * Récap du travail du 03.06
+
+  * Discussions avec Monsieur Aliprandi concernant la fonctionnalité traceroute
+    - Au vu du potentiel de ce traceroute, ne serait-il pas judicieux d'en faire une fonctionnalité à part entière ?
+    En effet, à l'heure actuelle, le traceroute n'est accessible que quand l'utilisateur a fini de scanner au préalable 
+    une adresse IP ou nom de domaine.
+    - Réponse : **Oui !** Je vais donc rajouter une page *Traceroute* dans la navbar ainsi que sur l'écran d'accueil.
+    L'interface ne change presque pas, si ce n'est un champ IP au dessus de la table des sauts, comme ceci ![UI Traceroute](https://i.imgur.com/7s9rzDm.png) 
+  
+  * Backend Traceroute
+    - Utilisation de la librairie [NodeJS-Traceroute](https://www.npmjs.com/package/nodejs-traceroute)
+    - Utilisation de l'API [HTTP de NodeJS](https://nodejs.org/api/http.html)
+    - J'ai réutilisé le même principe de fonctionnement que pour le scan par IP et le scan réseau local
+      - Le script [preload.js](src/js/preload.js) expose au [renderer.js](src/js/renderer.js) une multitude de fonctions, via l'objet [contextBridge](https://www.electronjs.org/docs/api/context-bridge) d'Electron.
+      Ce pont permet, de manière sécurisée, d'exposer des variables, fonctions, objets, au côté client de l'application. Pour ce faire, lors de la compilation, le contextBridge va ajouter
+      une "API" à l'objet [window](https://developer.mozilla.org/fr/docs/Web/API/Window). Ceci fait, le renderer aura accès auxdites fonctions et variables en passant par `window`. De cette manière, les appels à des fonctionnalités ou librairies
+      se font dans la quasi-totalité via le `main process` d'Electron (le fichier [app.js](src/app.js)), ce qui rend le tout extrêmement sécurisé et très peu enclin à des potentielles failles. Pour le traceroute, c'est exactement
+      ce qui a été fait. Le `renderer process` appelle la fonction `startTraceroute`, définie par le `contextBridge`, avec l'IP à utiliser. Ladite fonction va simplement émettre un évènement `startTraceroute` au `main process`.
+      Une fois l'évènement reçu côté `main`, le traceroute est lancé de manière asynchrone pour ne pas bloquer l'application. A chaque réception d'un nouveau saut réussi, le `main process` émet un évènement `receivedHopData`, et le transmet
+      au `renderer process`. Au préalable, ce dernier aura configuré un callback, également via le `contextBridge`, qui sera appelé à la réception de l'évènement.
+      Bien que paraissant compliqué à l'écrit, c'est une réalité un système très bien implémenté, d'une part par Electron et d'une part par moi-même. J'ai conçu l'application avec l'aspect sécurité en tête, pour contrer
+      le plus de potentiels vecteurs d'attaques possible.
+    
+  * Documentation technique
+    - Analyse organique terminée, il ne me reste plus qu'à faire l'analyse fonctionnelle et la conclusion (plus de tests aussi ?)
+    
   * Tests
