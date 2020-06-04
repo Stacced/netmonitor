@@ -2029,6 +2029,13 @@ node-gyp@^6.0.1:
     queued-up "^2.0.2"
     xml2js "^0.4.23"
 
+nodejs-traceroute@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/nodejs-traceroute/-/nodejs-traceroute-1.2.0.tgz#c89f76f8b41ae395960d98bedaa3a9c1895af02b"
+  integrity sha512-mrhJf8Ulum2+OOie9zz7gXT6b2Wrjsll2Bo/yBXDBziEYHm3mZdtRMQtD9Hoj0BLHIRdMYrzL+flmkyZwaFgBg==
+  dependencies:
+    validator "^12.2.0"
+
 nopt@^4.0.1:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/nopt/-/nopt-4.0.3.tgz#a375cad9d02fd921278d954c2254d5aa57e15e48"
@@ -3162,6 +3169,11 @@ validate-npm-package-license@^3.0.1:
   dependencies:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
+
+validator@^12.2.0:
+  version "12.2.0"
+  resolved "https://registry.yarnpkg.com/validator/-/validator-12.2.0.tgz#660d47e96267033fd070096c3b1a6f2db4380a0a"
+  integrity sha512-jJfE/DW6tIK1Ek8nCfNFqt8Wb3nzMoAbocBF6/Icgg1ZFSBpObdnwVY2jQj6qUqzhx5jc71fpvBWyLGO7Xl+nQ==
 
 validator@^13.0.0:
   version "13.0.0"

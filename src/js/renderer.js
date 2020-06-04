@@ -1,7 +1,7 @@
 /*
   Project   : NetMonitor
   Author    : Stacked
-  Version   : 27.05.2020 - 1.0.0
+  Version   : 04.06.2020 - 1.0.0
   Desc      : UI renderer process
  */
 // Constants
@@ -15,6 +15,12 @@ const profileArgs = {
     ping: '-sn',
     custom: '',
 };
+
+// Global variables for traceroute
+let prevLat = null;
+let prevLon = null;
+let polyLine = null;
+let hopCount = 0;
 
 // Initialize Leaflet map
 const hopsMap = L.map('hopsMap').setView([46, 4], 5);
@@ -248,6 +254,104 @@ $('#exportResults').click(() => {
         $('#scanResultsText .simplebar-content').text()
     );
 });
+
+/**
+ * Starts traceroute on IP address
+ */
+$('#startTraceroute').click(() => {
+    // Get IP or domain to scan
+    const toScan = $('#tracerouteIpAddress').val();
+
+    // Validate field
+    if (window.bridge.validateIp(toScan)) {
+        // Clear previous results
+        hopsLayer.clearLayers();
+        polyLine = null;
+        hopCount = 0;
+        $('#hops tbody').text('');
+
+        // Send event to main process to start traceroute
+        window.bridge.startTraceroute(toScan);
+
+        // Send user to loading screen
+        handleClickNavigation('loadingScreen');
+    } else {
+        // Display error box
+        window.bridge.showErrorBox(
+            "L'IP ou nom de domaine entré n'est pas valide !"
+        );
+    }
+});
+
+// Register on received hop data callback
+window.bridge.onTracerouteReceivedHopData(onReceivedHopDataCallback);
+
+/**
+ * Callback function for traceroute hop data
+ * Adds hop to table and map
+ * @param event Event object from Electron
+ * @param hopData JSON data string sent from main process
+ */
+function onReceivedHopDataCallback(event, hopData) {
+    hopData = JSON.parse(hopData);
+
+    // Don't plot duplicate hop
+    if (hopData.lat === prevLat && hopData.lon === prevLon) {
+        return;
+    }
+
+    hopCount++;
+
+    // Create row for table
+    const hopRow =
+        '<tr><td>' +
+        hopCount +
+        '</td><td>' +
+        hopData.query +
+        '</td><td>' +
+        hopData.city +
+        '</td><td>' +
+        hopData.region +
+        '</td><td>' +
+        hopData.country +
+        '</td></tr>';
+    $('#hops tbody').append(hopRow);
+
+    // Save GPS coordinates
+    prevLat = hopData.lat;
+    prevLon = hopData.lon;
+
+    // Create marker and add it to layer group
+    L.marker([hopData.lat, hopData.lon], { title: 'Saut ' + hopCount }).addTo(
+        hopsLayer
+    );
+
+    // Draw poly line
+    if (polyLine === null) {
+        polyLine = L.polyline([[hopData.lat, hopData.lon]], {
+            color: 'red',
+        }).addTo(hopsLayer);
+    } else {
+        polyLine.addLatLng(L.latLng(hopData.lat, hopData.lon));
+    }
+}
+
+// Register on traceroute done callback
+window.bridge.onTracerouteDone(onTracerouteDoneCallback);
+
+/**
+ * Callback function for traceroute done event
+ * Display results to user
+ * @param event Event object from Electron
+ * @param statusCode Status code of traceroute
+ */
+function onTracerouteDoneCallback(event, statusCode) {
+    // Show results on traceroute
+    handleClickNavigation('traceroute');
+
+    // Fit map zoom to layer bounds
+    hopsMap.fitBounds(hopsLayer.getBounds());
+}
 
 /**
  * Sets active tab in navbar (basically adds the "active" class to nav link)

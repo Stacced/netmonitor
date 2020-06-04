@@ -1,7 +1,7 @@
 /*
   Project   : NetMonitor
   Author    : Stacked
-  Version   : 28.05.2020 - 1.0.0
+  Version   : 04.06.2020 - 1.0.0
   Desc      : App entrypoint, main process
  */
 
@@ -9,15 +9,16 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const nmap = require('node-nmap');
 nmap.nmapLocation = 'nmap-7.80/nmap.exe';
+const Traceroute = require('nodejs-traceroute');
 const ip = require('ip');
 const fs = require('fs');
 const path = require('path');
+const httpGet = require('http').get;
 
-// Global scan reference for all events
+// Global variables
 let scan = null;
-
-// Global reference for local IP mask
 let localIpMask = null;
+let tracer = null;
 
 // Auto reload
 require('electron-reload')(__dirname);
@@ -163,6 +164,7 @@ ipcMain.on('rendererStartScanLocalNet', (event, args) => {
     scan.startScan();
 });
 
+// Listen to export results event from renderer process
 ipcMain.on('rendererExportResults', (event, args) => {
     // Define general dialog options
     const dialogOptions = {
@@ -200,4 +202,47 @@ ipcMain.on('rendererExportResults', (event, args) => {
             }
         });
     }
+});
+
+// Listen to start traceroute event from renderer process
+ipcMain.on('rendererStartTraceroute', (event, args) => {
+    // First of all, check if we can
+    const toTrace = args;
+
+    // Create new Traceroute, force IPv4 for speed purposes
+    tracer = new Traceroute('ipv4');
+
+    // Register callbacks for traceroute object
+    tracer.on('hop', (hop) => {
+        // Check if hop was timed out or if it's the first hop (from host to router)
+        if (hop.ip === 'D' || hop.ip === '192.168.1.1') {
+            return;
+        }
+
+        // Make request to IP API
+        const ipApiEndpoint = 'http://ip-api.com/json/' + hop.ip;
+        httpGet(ipApiEndpoint, (res) => {
+            let hopData = '';
+            res.on('data', (data) => (hopData += data));
+            res.on('end', () => {
+                event.reply('mainReceivedHopData', hopData);
+            });
+        }).on('error', (err) => {
+            // Log error, but discard it since it won't cause any problem on the renderer side
+            console.log(err);
+        });
+    });
+
+    // Send event to renderer process that traceroute is done
+    tracer.on('close', (code) => {
+        event.reply('mainTracerouteDone', code);
+    });
+
+    // Run traceroute on target
+    tracer.trace(toTrace.toString());
+});
+
+// Listen to stop traceroute event from renderer process
+ipcMain.on('rendererStopTraceroute', (event, args) => {
+    // TODO: use process.kill(pid) to stop traceroute
 });

@@ -1,7 +1,7 @@
 /*
   Project   : NetMonitor
   Author    : Stacked
-  Version   : 27.05.2020 - 1.0.0
+  Version   : 04.06.2020 - 1.0.0
   Desc      : Preload stuff for renderer process, such as specific Node.js APIs or packages for safety purposes
  */
 // Require the stuff we're gonna need
@@ -42,5 +42,14 @@ contextBridge.exposeInMainWorld('bridge', {
     },
     exportResults: (results) => {
         ipcRenderer.send('rendererExportResults', results);
+    },
+    startTraceroute: (toScan) => {
+        ipcRenderer.send('rendererStartTraceroute', toScan);
+    },
+    onTracerouteReceivedHopData: (receivedHopDataCallback) => {
+        ipcRenderer.on('mainReceivedHopData', receivedHopDataCallback);
+    },
+    onTracerouteDone: (tracerouteDoneCallback) => {
+        ipcRenderer.on('mainTracerouteDone', tracerouteDoneCallback);
     },
 });
