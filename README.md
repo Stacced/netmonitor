@@ -204,4 +204,27 @@ Aucune pour le moment.
     - Finalisation de la partie analyse organique
     
   * Tests
-
+----
+**03.06.2020**
+  * Récap du travail du 02.06
+  
+  * Traceroute
+    - Recherches préliminaires
+      - [NodeJS-Traceroute](https://www.npmjs.com/package/nodejs-traceroute) sera utilisé pour le traceroute en lui-même
+      - [Leaflet](https://leafletjs.com/) sera utilisé pour l'affichage de la carte du monde avec OpenStreetMaps pour les tiles
+    - Croquis ![Croquis interface](https://i.imgur.com/zdhMvJI.png)
+  
+  * UI Traceroute
+    - Leaflet m'a posé quelques soucis, notamment parce qu'il fallait refresh la taille de son conteneur pour que les tiles s'affichent proprement
+      - Solutionné avec map.invalidateSize()
+    - L'interface est quasiment terminée, il reste quelques petites choses par-ci par-là
+  
+  * Ajout validation des champs pour la page scan par IP
+    - Utilisation de la librairie [validator](https://www.npmjs.com/package/validator)
+    
+  * Fix de plusieurs bugs et typos
+  
+  * Documentation technique
+    - Avancement partie analyse organique
+  
+  * Tests
