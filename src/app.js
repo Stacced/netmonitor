@@ -241,7 +241,10 @@ ipcMain.on('rendererStartTraceroute', (event, args) => {
 
     // Send event to renderer process that traceroute is done
     tracer.on('close', (code) => {
-        event.reply('mainTracerouteDone', code);
+        // Check if process wasn't killed before sending done event
+        if (tracerPid !== null) {
+            event.reply('mainTracerouteDone', code);
+        }
     });
 
     // Run traceroute on target
@@ -252,4 +255,5 @@ ipcMain.on('rendererStartTraceroute', (event, args) => {
 ipcMain.on('rendererStopTraceroute', (event, args) => {
     // Kill traceroute process
     process.kill(tracerPid);
+    tracerPid = null;
 });
