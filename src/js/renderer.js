@@ -386,9 +386,6 @@ function handleClickNavigation(tab) {
             handleClickNavigation('loadingScreen');
             return;
         }
-    } else if (tab === 'traceroute') {
-        // If selected tab is traceroute, invalidate map size to load tiles properly
-        hopsMap.invalidateSize();
     }
 
     // Show selected tab
@@ -404,6 +401,12 @@ function handleClickNavigation(tab) {
             $(tabElement).css('display', 'none');
         }
     });
+
+    // If selected tab is traceroute, invalidate map size to load tiles properly
+    // This needs to be done AFTER displaying the page, otherwise it'll have no effect
+    if (tab === 'traceroute') {
+        hopsMap.invalidateSize();
+    }
 }
 
 /**
