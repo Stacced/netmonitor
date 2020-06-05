@@ -18,6 +18,8 @@ const profileArgs = {
 
 // Global variables
 let currentEvent = '';
+let selectedProfile = 'default';
+let performedLocalNetScan = false;
 let prevLat = null;
 let prevLon = null;
 let polyLine = null;
@@ -34,10 +36,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 // Add hops layer
 const hopsLayer = L.featureGroup().addTo(hopsMap);
-
-// Global variables
-let selectedProfile = 'default';
-let performedLocalNetScan = false;
 
 /**
  * Sends an event to the main process thru our context bridge to close app
@@ -380,6 +378,9 @@ function handleClickNavigation(tab) {
         if (!performedLocalNetScan) {
             // Send start scan local net event thru context bridge
             window.bridge.startScanLocalNet();
+
+            // Set current event
+            currentEvent = 'scan';
 
             // Display loading screen
             handleClickNavigation('loadingScreen');
