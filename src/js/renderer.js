@@ -161,22 +161,6 @@ $('#closeResults').click(() => {
     handleClickNavigation('home');
 });
 
-/**
- * Sends event to main process to start Nmap scan on local net
- */
-$('.scanLocalNetLink').click(() => {
-    // Check if scan was already performed
-    if (!performedLocalNetScan) {
-        // Send start scan local net event thru context bridge
-        window.bridge.startScanLocalNet();
-
-        // Display loading screen
-        handleClickNavigation('loadingScreen');
-    } else {
-        handleClickNavigation('scanLocalNet');
-    }
-});
-
 // Register callback for scan local net done event
 window.bridge.onScanLocalNetDone(scanLocalNetDoneCallback);
 
@@ -391,6 +375,21 @@ function setActiveTab(tab) {
  * @param tab
  */
 function handleClickNavigation(tab) {
+    // If selected tab is scan local net, check if scan was already performed
+    if (tab === 'scanLocalNet') {
+        if (!performedLocalNetScan) {
+            // Send start scan local net event thru context bridge
+            window.bridge.startScanLocalNet();
+
+            // Display loading screen
+            handleClickNavigation('loadingScreen');
+            return;
+        }
+    } else if (tab === 'traceroute') {
+        // If selected tab is traceroute, invalidate map size to load tiles properly
+        hopsMap.invalidateSize();
+    }
+
     // Show selected tab
     $(`#${tab}`).css('display', 'block');
 
@@ -404,11 +403,6 @@ function handleClickNavigation(tab) {
             $(tabElement).css('display', 'none');
         }
     });
-
-    // If selected tab is traceroute, invalidate map size to load tiles properly
-    if (tab === 'traceroute') {
-        hopsMap.invalidateSize();
-    }
 }
 
 /**

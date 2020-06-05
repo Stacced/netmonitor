@@ -22,7 +22,7 @@
                     <a class="nav-link" id="scanIpLink" onclick="handleClickNavigation('scanIp')">Scan IP & nom de domaine</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link scanLocalNetLink">Scan réseau local</a>
+                    <a class="nav-link" id="scanLocalNetLink" onclick="handleClickNavigation('scanLocalNet')">Scan réseau local</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="tracerouteLink" onclick="handleClickNavigation('traceroute')">Traceroute</a>
@@ -39,7 +39,7 @@
             <img src="img/ip-logo.png" alt="Logo scan IP"/><br>
             <span>Scan par IP ou nom de domaine</span>
         </div>
-        <div class="homeChoice scanLocalNetLink">
+        <div class="homeChoice" onclick="handleClickNavigation('scanLocalNet')">
             <img src="img/localnet-logo.png" alt="Logo scan local net"/><br>
             <span>Scan du réseau local</span>
         </div>
