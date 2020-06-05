@@ -17,7 +17,7 @@ const profileArgs = {
 };
 
 // Global variables
-let currentEvent = '';
+let currentEvent = null;
 let selectedProfile = 'default';
 let performedLocalNetScan = false;
 let prevLat = null;
@@ -112,6 +112,8 @@ window.bridge.onScanIpDone(scanIpDoneCallback);
  * Callback function for scan IP results receive event
  */
 function scanIpDoneCallback(event, args) {
+    currentEvent = null;
+
     // Display results tab
     handleClickNavigation('scanResults');
 
@@ -132,6 +134,7 @@ $('#cancelOngoingOperation').click(() => {
         // Clear temp traceroute results
         resetTraceroute();
     }
+    currentEvent = null;
 
     // Display home tab
     handleClickNavigation('home');
@@ -170,6 +173,7 @@ window.bridge.onScanLocalNetDone(scanLocalNetDoneCallback);
 function scanLocalNetDoneCallback(event, args) {
     // Update performed scan var
     performedLocalNetScan = true;
+    currentEvent = null;
 
     // Display local net scan results
     handleClickNavigation('scanLocalNet');
@@ -234,7 +238,7 @@ $('#restartScanLocalNet').click(() => {
     performedLocalNetScan = false;
 
     // Simulate local net scan click
-    $('.scanLocalNetLink').click();
+    handleClickNavigation('scanLocalNet');
 });
 
 /**
@@ -263,11 +267,11 @@ $('#startTraceroute').click(() => {
         // Send event to main process to start traceroute
         window.bridge.startTraceroute(toScan);
 
-        // Send user to loading screen
-        handleClickNavigation('loadingScreen');
-
         // Set current event
         currentEvent = 'traceroute';
+
+        // Send user to loading screen
+        handleClickNavigation('loadingScreen');
     } else {
         // Display error box
         window.bridge.showErrorBox(
@@ -339,6 +343,9 @@ window.bridge.onTracerouteDone(onTracerouteDoneCallback);
  * @param statusCode Status code of traceroute
  */
 function onTracerouteDoneCallback(event, statusCode) {
+    // Set current event
+    currentEvent = null;
+
     // Show results on traceroute
     handleClickNavigation('traceroute');
 
@@ -373,6 +380,11 @@ function setActiveTab(tab) {
  * @param tab
  */
 function handleClickNavigation(tab) {
+    // Disable navigation if app is running a scan or a traceroute
+    if (currentEvent != null && tab !== 'loadingScreen') {
+        return;
+    }
+
     // If selected tab is scan local net, check if scan was already performed
     if (tab === 'scanLocalNet') {
         if (!performedLocalNetScan) {
