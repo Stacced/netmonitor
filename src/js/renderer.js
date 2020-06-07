@@ -151,6 +151,7 @@ $('#cancelScan').click(() => {
     // Reset fields
     $('#ipAddress').val('');
     $('#nmapArgs').val('');
+    $('#nmapToScan').text('');
     $('option:selected').removeProp('selected');
     $("option[value='default']").prop('selected', 'selected');
 });
