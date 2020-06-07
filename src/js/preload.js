@@ -55,4 +55,7 @@ contextBridge.exposeInMainWorld('bridge', {
     onTracerouteDone: (tracerouteDoneCallback) => {
         ipcRenderer.on('mainTracerouteDone', tracerouteDoneCallback);
     },
+    onScanError: (scanErrorCallback) => {
+        ipcRenderer.on('mainScanErrored', scanErrorCallback);
+    },
 });

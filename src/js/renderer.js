@@ -355,6 +355,21 @@ function onTracerouteDoneCallback(event, statusCode) {
     hopsMap.fitBounds(hopsLayer.getBounds());
 }
 
+// Register on scan error callback
+window.bridge.onScanError(onScanErrorCallback);
+
+/**
+ * Redirects user to home page and resets scan-related variables
+ */
+function onScanErrorCallback() {
+    // Reset data
+    currentEvent = null;
+    performedLocalNetScan = false;
+
+    // Redirect user to home page
+    handleClickNavigation('home');
+}
+
 /**
  * Resets traceroute page to default state
  */

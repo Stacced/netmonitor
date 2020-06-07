@@ -20,6 +20,7 @@ let scan = null;
 let localIpMask = null;
 let tracer = null;
 let tracerPid = null;
+let scanCancelled = false;
 
 // Auto reload
 require('electron-reload')(__dirname);
@@ -105,6 +106,9 @@ ipcMain.on('rendererShowErrorBox', (event, message) => {
 
 // Listen to start IP scan event from renderer process
 ipcMain.on('rendererStartScanIp', (event, args) => {
+    // Reset scanCancelled variable just in case
+    scanCancelled = false;
+
     // Extract data from args object
     const toScan = args.ip;
     const nmapArgs = args.nmapArgs;
@@ -119,11 +123,23 @@ ipcMain.on('rendererStartScanIp', (event, args) => {
 
     // Reply to event on error with error flag
     scan.on('error', (error) => {
-        console.error(error); // TODO: send error
+        // Don't error on cancel event
+        if (!scanCancelled) {
+            // Send error event to renderer
+            event.reply('mainScanErrored');
+
+            // Display error box and log error object
+            dialog.showErrorBox(
+                'NetMonitor - Erreur',
+                `Une erreur s'est produite lors du scan : ${error.message}`
+            );
+            console.error(error);
+        }
     });
 
     // Reference cancel event
     ipcMain.once('rendererCancelScanIp', () => {
+        scanCancelled = true;
         scan.cancelScan();
     });
 
@@ -133,6 +149,9 @@ ipcMain.on('rendererStartScanIp', (event, args) => {
 
 // Listen to start local net scan event from renderer process
 ipcMain.on('rendererStartScanLocalNet', (event, args) => {
+    // Reset scanCancelled just in case
+    scanCancelled = false;
+
     // Get local IP mask if not already defined
     if (localIpMask === null) {
         localIpMask = ip.mask(ip.address(), ip.fromPrefixLen(24));
@@ -153,11 +172,23 @@ ipcMain.on('rendererStartScanLocalNet', (event, args) => {
 
     // Reply to event on error with error flag
     scan.on('error', (error) => {
-        console.error(error); // TODO: send error to renderer process
+        // Don't error on cancel event
+        if (!scanCancelled) {
+            // Send error event to renderer
+            event.reply('mainScanErrored');
+
+            // Display error box and log error object
+            dialog.showErrorBox(
+                'NetMonitor - Erreur',
+                `Une erreur s'est produite lors du scan : ${error.message}`
+            );
+            console.error(error);
+        }
     });
 
     // Reference cancel event
     ipcMain.once('rendererCancelScanIp', () => {
+        scanCancelled = true;
         scan.cancelScan();
     });
 
