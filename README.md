@@ -257,3 +257,27 @@ Aucune pour le moment.
     - Analyse organique terminée, il ne me reste plus qu'à faire l'analyse fonctionnelle et la conclusion (plus de tests aussi ?)
     
   * Tests
+----
+  * Récap du travail de la veille
+  
+  * Traceroute
+    - Implémentation de la fonction stop (qui n'est pas implémentée de base dans *NodeJS-Traceroute*
+      - La librairie émet un évènement `pid` avec l'ID du processus quand ce dernier est lancé. Du coup, je sauvegarde simplement le PID dans une variable globale, puis dès que le `main process` reçoit un évènement `stopTraceroute`, j'appelle `process.kill(pid)` pour terminer le processus. Cela fonctionne très bien !
+    - Rework du reset des résultats
+      - Nettoyage du layerGroup contenant les sauts et le tracé entre les sauts
+      - Nettoyage du contenu de la table des sauts
+    - Fix event `done` appelé quand le processus était kill (ce qui était inutile)
+    - Fix overflow de la table s'il y a beaucoup de sauts
+      - J'utilise la classe `table-sm` de Bootstrap pour réduire le padding des cellules
+  
+  * Désactivation de la navigation si une opération est en cours (scan, traceroute)
+  
+  * Documentation technique
+    - Analyse fonctionnelle
+    - Monsieur Aliprandi m'a confirmé quelques points sur lesquels je n'étais pas sûr de moi.
+    
+  * Manuel utilisateur
+    - Début
+  
+  * Tests
+  
