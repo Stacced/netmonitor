@@ -222,6 +222,7 @@ function scanLocalNetDoneCallback(event, args) {
 
                 // Pre-fill IP address field with selected machine's IP
                 $('#ipAddress').val(machine.ip);
+                $('#nmapToScan').text(machine.ip);
             });
 
             // Append machine to row
