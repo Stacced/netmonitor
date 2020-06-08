@@ -278,7 +278,25 @@ Aucune pour le moment.
     - Monsieur Aliprandi m'a confirmé quelques points sur lesquels je n'étais pas sûr de moi.
     
   * Manuel utilisateur
-    - Début
+    - Début de la rédaction
   
   * Tests
+----
+**08.06.2020**
+  * Récap du travail du 05.06
   
+  * Finalisation du code, fix de quelques bugs
+    - L'IP de la machine sélectionnée à partir du scan réseau local n'était pas synchronisée dans le champ arguments du scan IP
+    - Ajout du choix traceroute sur la page d'accueil
+    - Affichage des erreurs pendant un scan
+    - Redirection de l'utilisateur sur la page d'accueil si le scan time-out / échoue / a un problème
+    - Fix zoom lors du premier traceroute
+  
+  * Une grosse partie de la journée a été dédiée à la rédaction de la documentation technique
+    - Finalisation de la conclusion (difficultés rencontrées, solutions, améliorations possibles, bilan personnel)
+    - Finalisation de l'analyse organique (ajout d'IP-API)
+    - Finalisation de l'analyse fonctionnelle
+    - Finalisation des tests
+
+  * Manuel utilisateur
+    - Ajout de la procédure d'installation
