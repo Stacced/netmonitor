@@ -300,3 +300,13 @@ Aucune pour le moment.
 
   * Manuel utilisateur
     - Ajout de la procédure d'installation
+**09.06.2020**
+  * Fin du travail aujourd'hui
+  
+  * Documentation techniques
+    - Finitions
+  
+  * Manuel utilisateur
+    - Ajout de l'utilisation + finitions
+  
+  * Résumé du rapport TPI

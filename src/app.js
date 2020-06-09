@@ -1,7 +1,7 @@
 /*
   Project   : NetMonitor
   Author    : Stacked
-  Version   : 04.06.2020 - 1.0.0
+  Version   : 09.06.2020 - 1.0.0
   Desc      : App entrypoint, main process
  */
 
