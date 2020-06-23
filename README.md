@@ -133,7 +133,6 @@ Aucune pour le moment.
  * Première version du "vrai" scan
   - Cela a pris plus de temps que prévu, je n'ai donc pas pu accorder beaucoup de temps à la page des résultats. On fera ça demain.
   - J'utilise la librairie [node-nmap](https://www.npmjs.com/package/node-nmap) pour interfacer avec NMAP. L'objectif est de ship l'application avec l'exécutable d'NMAP pour éviter à l'utilisateur d'avoir à l'installer.
-  - Voici un petit schéma de fonctionnement pour les scans
   
 ----
 **28.05.2020**
