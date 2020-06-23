@@ -20,7 +20,9 @@
   "license": "GPL-3.0",
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": {
+        "icon": "src/img/logo-min.ico"
+      },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
