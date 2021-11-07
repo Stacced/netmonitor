@@ -60,7 +60,7 @@
     "ip": "^1.1.5",
     "node-nmap": "https://github.com/Stacced/node-nmap/",
     "nodejs-traceroute": "^1.2.0",
-    "validator": "^13.0.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "@electron-forge/cli": "6.0.0-beta.51",
